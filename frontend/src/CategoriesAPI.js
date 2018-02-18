@@ -22,3 +22,13 @@ fetch(`${api}/${category}/posts`, { headers })
         console.log(" response for api /:category/posts : " + category + " res : " + JSON.stringify(res))
         res
     })
+
+export const all_posts = () =>
+fetch(`${api}/posts`, { headers })
+    .then((res) => {
+    console.log("api : " + JSON.stringify(api))
+    console.log("all_posts response for api /posts : " +  " res : " + JSON.stringify(res))
+       res
+}).catch((err) => {
+    console.log("all_posts error " + JSON.stringify(err));
+})

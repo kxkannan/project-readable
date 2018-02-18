@@ -10,18 +10,20 @@ class App extends Component {
     defaultCategoryPosts: []
   }
 
-  componentWillMount() {
+  componentDidMount() {
     CategoriesAPI.categories().then((categories) => {
         console.log("componentDidMount - categories: " + JSON.stringify(categories))
       this.setState({categories})
-      console.log("componentDidMount - defaultCategory: " + JSON.stringify(categories[0]));
     })
 
-    CategoriesAPI.posts("react").then((posts) => {
-      console.log("componentDidMount posts: " + JSON.stringify(posts))
-      this.setState({defaultCategoryPosts: posts})
+    CategoriesAPI.all_posts().then((response) => {
+      console.log("componentDidMount posts: " + JSON.stringify(response))
+      this.setState({defaultCategoryPosts: response})
       console.log("componentDidMount - defaultCategoryPosts: " + JSON.stringify(this.state.defaultCategoryPosts))
-    })
+    }).catch((err) => {
+          console.log("Error response for all_posts: " + JSON.stringify(err));
+      })
+
 
   }
 
@@ -49,6 +51,17 @@ class App extends Component {
                             "deleted":false,
                             "commentCount":5
 
+                        },
+                        {
+                            "id": "6ni6ok3ym7mf1p33lnez",
+                            "timestamp": 1468479767190,
+                            "title": "Learn Redux in 10 minutes!",
+                            "body": "Just kidding. It takes more than 10 minutes to learn technology.",
+                            "author": "thingone",
+                            "category": "redux",
+                            "voteScore": -5,
+                            "deleted": false,
+                            "commentCount": 0
                         }]
 
     return (
