@@ -27,11 +27,34 @@
   to { transform: rotate(360deg); }
 }
 
+.header {
+  background-color: #e5c411;
+  height: 10px;
+  padding: 15px;
+  color: white;
+  margin-right: 50px;
+}
+
 .category {
   margin-left: 5px;
   margin-right: 5px;
 }
 
 .category-menu {
-  margin-left: 0;
+  margin-left: 30px;
+  text-align: left;
+}
+
+
+.title {
+  font-size: 20px;
+  color: #222222;
+}
+
+.postTitle {
+  text-align: left;
+}
+
+.categoryPosts {
+  margin-left: 10px;
 }

@@ -15,11 +15,12 @@ class CategoryMenu extends Component {
             console.log("item - " + JSON.stringify(item) + " index: " + index)
         ))
         return (
-            <div className="category-menu">
-            {categories.map((item, index) => (
-                <span className='category' key={index}>{item.name}</span>
-             ))}
-             </div>
+            <div className="header category-menu">
+            <span className="title">Readble</span>
+              {categories.map((item, index) => (
+                  <span className='category' key={index}>{item.name}</span>
+               ))}
+            </div>
         );
 
     }
