@@ -52,9 +52,42 @@
 }
 
 .postTitle {
+  font-size: 18px;
+  margin-right: 10px;
   text-align: left;
+}
+
+.author {
+  font-size: 16px;
+  color: #008800;
+}
+
+.posts {
+  margin-top: 10px;
+  margin-left: 20px;
 }
 
 .categoryPosts {
   margin-left: 10px;
+}
+
+.menu-actions {
+  margin-left: 300px;
+  text-align: right;
+  color: #2e2e2e;
+  font-size: 14px;
+}
+
+.sort-order {
+  margin-left: 5px;
+  font-size: 14px;
+  color: #0074D9;
+}
+
+.subtext {
+  font-size: 12px;
+}
+
+.comments {
+
 }

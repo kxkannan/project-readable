@@ -25,10 +25,4 @@ fetch(`${api}/${category}/posts`, { headers })
 
 export const all_posts = () =>
 fetch(`${api}/posts`, { headers })
-    .then((res) => {
-    console.log("api : " + JSON.stringify(api))
-    console.log("all_posts response for api /posts : " +  " res : " + JSON.stringify(res))
-       res
-}).catch((err) => {
-    console.log("all_posts error " + JSON.stringify(err));
-})
+    .then((res) => res.json() )

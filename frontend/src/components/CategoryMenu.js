@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
+
 class CategoryMenu extends Component {
 
     static propTypes = {
@@ -20,6 +21,10 @@ class CategoryMenu extends Component {
               {categories.map((item, index) => (
                   <span className='category' key={index}>{item.name}</span>
                ))}
+             <span className="menu-actions">Submit Post</span>
+             <span className="menu-actions">Order By:</span>
+             <span className="sort-order">VoteScore |</span>
+             <span className="sort-order">Timestamp</span>
             </div>
         );
 
