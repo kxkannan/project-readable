@@ -33,7 +33,6 @@ function posts(state = initialPosts, action) {
                 newState.byId[post.id] = post
                 newState.allIds.push(post.id)
             })
-
             return newState
 
         default:

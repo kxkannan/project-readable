@@ -2,21 +2,17 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import FaCaretUp from 'react-icons/lib/fa/caret-up'
 import FaCaretDown from 'react-icons/lib/fa/caret-down'
+import { connect } from 'react-redux'
 
 class CategoryPost extends Component {
 
-    static propTypes = {
-        posts: PropTypes.array.isRequired
-    }
-
     render() {
-        const { posts } = this.props
-
-        console.log("CategoryPost posts: " + JSON.stringify(posts))
+        console.log("store posts: " + JSON.stringify(this.props.posts))
+        console.log("CategoryPost posts: " + JSON.stringify(this.props.posts))
         return (
             <div className="categoryPosts">
             <table className="posts">
-            {posts.map(function(post, idx) {
+            {this.props.posts.map(function(post, idx) {
                 console.log("key: " + post.id.toString())
                 return (
                     <div key="{post.id.toString()}">
@@ -50,4 +46,10 @@ class CategoryPost extends Component {
     }
 }
 
-export default CategoryPost;
+function mapStateToProps(posts) {
+  return {
+      posts
+  }
+}
+
+export default connect(mapStateToProps)(CategoryPost);

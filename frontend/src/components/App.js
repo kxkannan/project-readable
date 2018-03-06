@@ -13,7 +13,6 @@ class App extends Component {
       allPosts: []
   }
 
-
   componentDidMount() {
 
     CategoriesAPI.categories().then((categories) => {
@@ -33,16 +32,15 @@ class App extends Component {
 
         <CategoryMenu categories={this.state.categories} />
 
-        <CategoryPost posts={this.state.allPosts} />
+        <CategoryPost/>
 
       </div>
     );
   }
 }
 
-function mapStateToProps ({ posts }) {
-
-    return { }
+function mapStateToProps (posts) {
+    return posts
 }
 
 function mapDispatchToProps (dispatch) {
