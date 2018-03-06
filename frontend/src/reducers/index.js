@@ -20,10 +20,8 @@ import {
 //    "commentCount": 2
 
 const initialPosts = {
-  posts: {
       byId: {},
       allIds: []
-  }
 }
 
 function posts(state = initialPosts, action) {
@@ -32,15 +30,12 @@ function posts(state = initialPosts, action) {
         case ADD_POST:
             let newState = Object.assign({}, initialPosts)
             action.posts.map( (post) => {
-                console.log("post: " + JSON.stringify(post))
-                newState.posts.byId[post.id] = post
-                newState.posts.allIds.push(post.id)
+                newState.byId[post.id] = post
+                newState.allIds.push(post.id)
             })
 
-             return {
-                 ...state,
-                 posts: newState.posts
-             }
+            return newState
+
         default:
             return state;
     }
