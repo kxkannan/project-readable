@@ -32,9 +32,12 @@ export function deletePost ( postId ) {
     }
 }
 
-export function addPost (post) {
-    return {
+export function addPost(posts) {
+    console.log("addPost: " + JSON.stringify(posts))
+    let retVal = {
         type: ADD_POST,
-        post
+        posts
     }
+    console.log("retVal from addPost: " + JSON.stringify(retVal))
+    return retVal
 }

@@ -21,9 +21,7 @@ class App extends Component {
     })
 
     CategoriesAPI.all_posts().then((response) => {
-      //this.setState({allPosts: response})
-      //store.dispatch()
-
+      this.props.addAllPosts(response)
     })
   }
 
@@ -49,8 +47,7 @@ function mapStateToProps ({ posts }) {
 
 function mapDispatchToProps (dispatch) {
     return {
-        selectRecipe: (data) => dispatch(addPost(data)),
-        //remove: (data) => dispatch(removeFromCalendar(data))
+        addAllPosts: (data) => dispatch(addPost(data)),
     }
 }
 

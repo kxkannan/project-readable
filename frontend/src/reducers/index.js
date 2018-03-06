@@ -30,15 +30,17 @@ function posts(state = initialPosts, action) {
 
     switch (action.type) {
         case ADD_POST:
-            const { post } = action
-
             let newState = Object.assign({}, initialPosts)
-            newState.posts.byId[Object.values(action)[0]] = action
-            newState.posts.allIds.push([Object.values(action)[0]])
+            action.posts.map( (post) => {
+                console.log("post: " + JSON.stringify(post))
+                newState.posts.byId[post.id] = post
+                newState.posts.allIds.push(post.id)
+            })
 
-            return {
-                ...state,
-            }
+             return {
+                 ...state,
+                 posts: newState.posts
+             }
         default:
             return state;
     }
@@ -74,5 +76,6 @@ function vote(state = [], action) {
 }
 
 export default combineReducers({
-    posts
+    posts,
+    vote
 })
