@@ -32,6 +32,7 @@ function posts(state = initialPosts, action) {
             action.posts.map( (post) => {
                 newState.byId[post.id] = post
                 newState.allIds.push(post.id)
+                return newState
             })
             return newState
 
