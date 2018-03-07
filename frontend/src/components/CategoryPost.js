@@ -1,23 +1,23 @@
 import React, {Component} from 'react'
-import FaCaretUp from 'react-icons/lib/fa/caret-up'
-import FaCaretDown from 'react-icons/lib/fa/caret-down'
+
 import { connect } from 'react-redux'
+import PostItem from './PostItem';
 import PropTypes from 'prop-types'
+import {downVotePost, upVotePost} from "../actions";
 
 class CategoryPost extends Component {
 
     upVote = (postId) => {
-        console.log(" category post upVote called - " + postId)
+        this.props.voteUp({postId: postId, posts: this.props.posts })
     }
 
     downVote = (postId) => {
-        console.log(" category post downVote called " + postId)
+        this.props.voteDown({postId: postId, posts: this.props.posts })
     }
 
 
     render() {
         const { posts } = this.props.posts
-
 
         let postIds = Object.keys(posts)
         let postKeys = postIds ? Object.keys(posts.byId) : []
@@ -25,34 +25,7 @@ class CategoryPost extends Component {
         if (postKeys) {
             return (
                 <div className="categoryPosts">
-                    <table className="posts" key="posts_table">
-                        {postKeys.map(function (key, idx) {
-                            var bodyKey = "body_" + idx
-                            return (
-                                <tbody key={bodyKey}>
-                                    <tr key="{key.toString()}_title">
-                                        <td className="postNumber">{idx + 1}.</td>
-                                        <td className="postTitle">
-                                            <span className="postTitle">{posts.byId[key].title}</span>
-                                            <span className="author">({posts.byId[key].author})</span>
-                                        </td>
-                                    </tr>
-                                    <tr key="{key.toString()}_subtext">
-                                        <td colSpan="1"></td>
-                                        <td className="subtext">
-                                          <span>{posts.byId[key].voteScore} votes | </span>
-                                          <span>{new Date(posts.byId[key].timestamp).toDateString()} {new Date(posts.byId[key].timestamp).toLocaleTimeString()} | </span>
-                                          <span>{posts.byId[key].commentCount} comments | </span>
-                                          <span onClick={() => this.upVote(key)}>Vote Up <FaCaretUp size="14"/> | </span>
-                                          <span onClick={() => this.downVote(key)}>Vote Down <FaCaretDown size="14"/> | </span>
-                                          <span>Edit | </span>
-                                          <span>Delete</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            )
-                        })}
-                    </table>
+                  <PostItem postKeys={postKeys} posts={posts} upVote={this.upVote} downVote={this.downVote} />
                 </div>
             );
         }
@@ -65,4 +38,11 @@ function mapStateToProps(posts) {
   }
 }
 
-export default connect(mapStateToProps)(CategoryPost);
+function mapDispatchToProps(dispatch) {
+   return {
+       voteUp: (data) => dispatch(upVotePost(data)),
+       voteDown: (data) => dispatch(downVotePost(data))
+   }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryPost);

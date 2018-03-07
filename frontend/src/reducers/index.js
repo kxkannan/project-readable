@@ -43,20 +43,29 @@ function posts(state = initialPosts, action) {
 }
 
 
-function vote(state = [], action) {
-    const { voteScore } = action
+function vote(state=initialPosts, action) {
+
+    console.log("reducer vote state: " + JSON.stringify(state))
+    console.log("reducer vote: " + JSON.stringify(action))
+    console.log("reducer vote postId: " + JSON.stringify(action.postId))
+    if (state.byId[action.postId]) {
+        console.log("voteScore " + JSON.stringify(state.byId[action.postId].voteScore))
+    }
+
+    let currentVoteScore = 0
+    let newState = Object.assign({}, state)
 
     switch (action.type) {
         case UP_VOTE_POST:
-            return {
-                ...state,
-                [voteScore]:  voteScore + 1
-            }
+            currentVoteScore = state.byId[action.postId].voteScore
+            newState.byId[action.postId].voteScore = currentVoteScore + 1
+            return  newState
+
         case DOWN_VOTE_POST:
-            return {
-                ...state,
-                [voteScore]:  voteScore - 1
-            }
+            currentVoteScore = state.byId[action.postId].voteScore
+            newState.byId[action.postId].voteScore = currentVoteScore - 1
+            return  newState
+
         case EDIT_POST:
             return {
                 ...state,
