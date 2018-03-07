@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { connect } from 'react-redux'
+import { Route } from 'react-router-dom'
 import * as CategoriesAPI from '../CategoriesAPI';
 import CategoryMenu from './CategoryMenu';
 import CategoryPost from './CategoryPost';
@@ -32,7 +33,14 @@ class App extends Component {
 
         <CategoryMenu categories={this.state.categories} />
 
-        <CategoryPost/>
+        {/*{this.state.categories.map( (category) => {*/}
+              {/*return <Route key={category.path} path={'/' + category.path}  render={() => <CategoryPost category={category} />} /> }*/}
+           {/*)*/}
+        {/*}*/}
+
+        <Route path="/react" render={() => <CategoryPost selectedCategory="react"/>} />
+
+        <Route exact path="/" render={() => <CategoryPost selectedCategory="all"/> } />
 
       </div>
     );

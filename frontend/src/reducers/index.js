@@ -9,16 +9,6 @@ import {
 } from '../actions'
 
 
-//"id": "8xf0y6ziyjabvozdd253nd",
-//    "timestamp": 1467166872634,
-//    "title": "Udacity is the best place to learn React",
-//    "body": "Everyone says so after all.",
-//    "author": "thingtwo",
-//    "category": "react",
-//    "voteScore": 6,
-//    "deleted": false,
-//    "commentCount": 2
-
 const initialPosts = {
       byId: {},
       allIds: []
@@ -45,13 +35,6 @@ function posts(state = initialPosts, action) {
 
 function vote(state=initialPosts, action) {
 
-    console.log("reducer vote state: " + JSON.stringify(state))
-    console.log("reducer vote: " + JSON.stringify(action))
-    console.log("reducer vote postId: " + JSON.stringify(action.postId))
-    if (state.byId[action.postId]) {
-        console.log("voteScore " + JSON.stringify(state.byId[action.postId].voteScore))
-    }
-
     let currentVoteScore = 0
     let newState = Object.assign({}, state)
 
@@ -70,10 +53,12 @@ function vote(state=initialPosts, action) {
             return {
                 ...state,
             }
+
         case DELETE_POST:
             return {
                 ...state,
             }
+
         default :
             return state
     }

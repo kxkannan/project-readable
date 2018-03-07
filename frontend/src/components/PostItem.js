@@ -1,34 +1,44 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import { Link } from 'react-router-dom'
 import FaCaretUp from 'react-icons/lib/fa/caret-up'
 import FaCaretDown from 'react-icons/lib/fa/caret-down'
+import {downVotePost, upVotePost} from "../actions";
 
 class PostItem extends Component {
 
     render() {
-        const {postKeys, posts, upVote, downVote} = this.props
+        const {postKeys, posts, upVote, downVote, editPost, deletePost} = this.props
 
         return (
             <table className="posts" key="posts_table">
                 {postKeys.map(function (postKey, idx) {
-                     return (   <tbody>
+                    let bodyKey = "bodyKey_" + idx
+                    let post = posts.posts.byId[postKey]
+                    let postItemUrl = '/' + post.category + '/' + post.id
+
+                    console.log("post: " + JSON.stringify(post))
+                     return (
+                       <tbody key={bodyKey}>
                         <tr key="{postKey.toString()}_title">
                             <td className="postNumber">{idx + 1}.</td>
                             <td className="postTitle">
-                                <span className="postTitle">{posts.byId[postKey].title}</span>
-                                <span className="author">({posts.byId[postKey].author})</span>
+                                <Link to={postItemUrl} >
+                                  <span className="postTitle">{post.title}</span>
+                                </Link>
+                                <span className="author">({post.author})</span>
                             </td>
                         </tr>
                         <tr key="{postKey.toString()}_subtext">
                             <td colSpan="1"></td>
                             <td className="subtext">
-                                <span>{posts.byId[postKey].voteScore} votes | </span>
-                                <span>{new Date(posts.byId[postKey].timestamp).toDateString()} {new Date(posts.byId[postKey].timestamp).toLocaleTimeString()} | </span>
-                                <span>{posts.byId[postKey].commentCount} comments | </span>
+                                <span>{post.voteScore} votes | </span>
+                                <span>{new Date(post.timestamp).toDateString()} {new Date(post.timestamp).toLocaleTimeString()} | </span>
+                                <span>{post.commentCount} comments | </span>
                                 <span onClick={() => upVote(postKey)}>Vote Up <FaCaretUp size="14"/> | </span>
                                 <span onClick={() => downVote(postKey)}>Vote Down <FaCaretDown size="14"/> | </span>
-                                <span>Edit | </span>
-                                <span>Delete</span>
+                                <span><button onClick={() => editPost(postKey)}>Edit</button>| </span>
+                                <span><button onClick={() => deletePost(postKey)}>Delete</button></span>
                             </td>
                         </tr>
                         </tbody>
@@ -44,4 +54,17 @@ class PostItem extends Component {
     }
 }
 
-export default PostItem
+function mapStateToProps(posts) {
+    return {
+        posts
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        voteUp: (data) => dispatch(upVotePost(data)),
+        voteDown: (data) => dispatch(downVotePost(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostItem);

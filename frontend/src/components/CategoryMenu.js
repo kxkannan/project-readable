@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 
 class CategoryMenu extends Component {
@@ -19,7 +20,7 @@ class CategoryMenu extends Component {
             <div className="header category-menu">
             <span className="title">Readble</span>
               {categories.map((item, index) => (
-                  <span className='category' key={index}>{item.name}</span>
+                  <span className='category' key={index}><Link to={'/' + item.name}>{item.name}</Link></span>
                ))}
              <span className="menu-actions">Submit Post</span>
              <span className="menu-actions">Order By:</span>
