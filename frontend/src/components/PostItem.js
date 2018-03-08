@@ -8,19 +8,23 @@ import {downVotePost, upVotePost} from "../actions";
 class PostItem extends Component {
 
     render() {
-        const {postKeys, posts, upVote, downVote, editPost, deletePost} = this.props
+        const {selectedCategory, upVote, downVote, editPost, deletePost} = this.props
+        const { posts } = this.props.posts
+
+        console.log("posts in PostItem " + JSON.stringify(posts))
+        let filteredPosts = (selectedCategory === null || selectedCategory === "all") ? Object.values(posts.byId)  : Object.values(posts.byId).filter( (post) => post.category === selectedCategory)
+        console.log("selectedCategory: " + selectedCategory + "  filteredPosts: " + JSON.stringify(filteredPosts))
 
         return (
             <table className="posts" key="posts_table">
-                {postKeys.map(function (postKey, idx) {
+                {filteredPosts.map(function (post, idx) {
                     let bodyKey = "bodyKey_" + idx
-                    let post = posts.posts.byId[postKey]
                     let postItemUrl = '/' + post.category + '/' + post.id
 
                     console.log("post: " + JSON.stringify(post))
                      return (
                        <tbody key={bodyKey}>
-                        <tr key="{postKey.toString()}_title">
+                        <tr key="{post.id.toString()}_title">
                             <td className="postNumber">{idx + 1}.</td>
                             <td className="postTitle">
                                 <Link to={postItemUrl} >
@@ -29,16 +33,16 @@ class PostItem extends Component {
                                 <span className="author">({post.author})</span>
                             </td>
                         </tr>
-                        <tr key="{postKey.toString()}_subtext">
+                        <tr key="{post.id.toString()}_subtext">
                             <td colSpan="1"></td>
                             <td className="subtext">
                                 <span>{post.voteScore} votes | </span>
                                 <span>{new Date(post.timestamp).toDateString()} {new Date(post.timestamp).toLocaleTimeString()} | </span>
                                 <span>{post.commentCount} comments | </span>
-                                <span onClick={() => upVote(postKey)}>Vote Up <FaCaretUp size="14"/> | </span>
-                                <span onClick={() => downVote(postKey)}>Vote Down <FaCaretDown size="14"/> | </span>
-                                <span><button onClick={() => editPost(postKey)}>Edit</button>| </span>
-                                <span><button onClick={() => deletePost(postKey)}>Delete</button></span>
+                                <span onClick={() => upVote(post.id)}>Vote Up <FaCaretUp size="14"/> | </span>
+                                <span onClick={() => downVote(post.id)}>Vote Down <FaCaretDown size="14"/> | </span>
+                                <span><button onClick={() => editPost(post.id)}>Edit</button>| </span>
+                                <span><button onClick={() => deletePost(post.id)}>Delete</button></span>
                             </td>
                         </tr>
                         </tbody>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import PostItem from './PostItem';
 import {downVotePost, upVotePost} from "../actions";
+import { Route } from 'react-router-dom'
 
 class CategoryPost extends Component {
 
@@ -23,20 +24,15 @@ class CategoryPost extends Component {
 
 
     render() {
-        const { selectedCategory } = this.props.selectedCategory
         const { posts } = this.props.posts
 
-        console.log("posts: " + JSON.stringify(posts))
-        console.log("props category: " + selectedCategory)
-        let filteredPosts = Object.values(posts.byId).filter( (post) => post.category.name === selectedCategory)
+        let selectedCategory = this.props.selectedCategory ? this.props.selectedCategory : "all"
 
-        let postIds = Object.keys(posts)
-        let postKeys = postIds ? Object.keys(posts.byId) : []
-
-        if (postKeys) {
+        console.log("selectedCategory in CategoryPost: " + selectedCategory)
+        if (posts) {
             return (
                 <div className="categoryPosts">
-                  <PostItem postKeys={postKeys} posts={posts} upVote={this.upVote}
+                  <PostItem selectedCategory={selectedCategory} upVote={this.upVote}
                             downVote={this.downVote}
                             editPost={this.editPost}
                             deletePost={this.deletePost}

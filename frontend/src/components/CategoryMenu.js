@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 
+
 class CategoryMenu extends Component {
 
     static propTypes = {
@@ -18,7 +19,7 @@ class CategoryMenu extends Component {
         ))
         return (
             <div className="header category-menu">
-            <span className="title">Readble</span>
+                <span className="title"><Link to="/">Readble</Link></span>
               {categories.map((item, index) => (
                   <span className='category' key={index}><Link to={'/' + item.name}>{item.name}</Link></span>
                ))}

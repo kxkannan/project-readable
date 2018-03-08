@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { connect } from 'react-redux'
-import { Route } from 'react-router-dom'
+import { Switch, Route, withRouter } from 'react-router-dom'
 import * as CategoriesAPI from '../CategoriesAPI';
 import CategoryMenu from './CategoryMenu';
 import CategoryPost from './CategoryPost';
 import { addPost } from '../actions'
+import PostDetail from './PostDetail'
 
 
 class App extends Component {
@@ -33,14 +34,11 @@ class App extends Component {
 
         <CategoryMenu categories={this.state.categories} />
 
-        {/*{this.state.categories.map( (category) => {*/}
-              {/*return <Route key={category.path} path={'/' + category.path}  render={() => <CategoryPost category={category} />} /> }*/}
-           {/*)*/}
-        {/*}*/}
-
-        <Route path="/react" render={() => <CategoryPost selectedCategory="react"/>} />
-
-        <Route exact path="/" render={() => <CategoryPost selectedCategory="all"/> } />
+        {this.state.categories.map( (category) => {
+              return <Route key={category.path} path={'/' + category.path}  render={() => <CategoryPost selectedCategory={category.name} />} /> }
+           )
+        }
+        <Route exact={true} path="/" render={() => <CategoryPost selectedCategory="all"/> } />
 
       </div>
     );
@@ -57,7 +55,7 @@ function mapDispatchToProps (dispatch) {
     }
 }
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-)(App)
+)(App))
