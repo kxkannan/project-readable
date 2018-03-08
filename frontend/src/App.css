@@ -92,3 +92,8 @@
 .comments {
 
 }
+
+.post-body {
+  width: 250px;
+  height: 100px;
+}

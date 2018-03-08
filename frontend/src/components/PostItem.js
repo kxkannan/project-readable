@@ -17,7 +17,7 @@ class PostItem extends Component {
 
         return (
             <table className="posts" key="posts_table">
-                {filteredPosts.map(function (post, idx) {
+                {filteredPosts.map((post, idx) => {
                     let bodyKey = "bodyKey_" + idx
                     let postItemUrl = '/' + post.category + '/' + post.id
 

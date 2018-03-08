@@ -26,6 +26,8 @@ class CategoryPost extends Component {
     render() {
         const { posts } = this.props.posts
 
+        console.log(" selected category form match " + this.props.match.params.category)
+
         let selectedCategory = this.props.selectedCategory ? this.props.selectedCategory : "all"
 
         console.log("selectedCategory in CategoryPost: " + selectedCategory)
