@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import FaCaretUp from 'react-icons/lib/fa/caret-up'
 import FaCaretDown from 'react-icons/lib/fa/caret-down'
-import {downVotePost, upVotePost} from "../actions";
+import { downVotePost, upVotePost, showPostDetail } from "../actions";
 
 class PostItem extends Component {
 
@@ -17,19 +17,22 @@ class PostItem extends Component {
 
     editPost = (postId) => {
         console.log("Edit post " + JSON.stringify(postId))
+        this.props.postDetail({postId: postId, edit: true})
     }
 
     deletePost = (postId) => {
         console.log("Delete post " + JSON.stringify(postId))
     }
 
+    selectedPost = (postId) => {
+        this.props.postDetail({postId: postId, edit: false })
+    }
+
     render() {
         const { selectedCategory } = this.props
         const { posts } = this.props.posts
 
-        console.log("posts in PostItem " + JSON.stringify(posts))
         let filteredPosts = (selectedCategory === null || selectedCategory === "all") ? Object.values(posts.byId)  : Object.values(posts.byId).filter( (post) => post.category === selectedCategory)
-        console.log("selectedCategory: " + selectedCategory + "  filteredPosts: " + JSON.stringify(filteredPosts))
 
         return (
             <table className="posts" key="posts_table">
@@ -37,14 +40,13 @@ class PostItem extends Component {
                     let bodyKey = "bodyKey_" + idx
                     let postItemUrl = '/' + post.category + '/' + post.id
 
-                    console.log("post: " + JSON.stringify(post))
                      return (
                        <tbody key={bodyKey}>
                         <tr key="{post.id.toString()}_title">
                             <td className="postNumber">{idx + 1}.</td>
                             <td className="postTitle">
                                 <Link to={postItemUrl} >
-                                  <span className="postTitle">{post.title}</span>
+                                  <span className="postTitle" onClick={() => this.selectedPost(post.id)}>{post.title}</span>
                                 </Link>
                                 <span className="author">({post.author})</span>
                             </td>
@@ -57,7 +59,11 @@ class PostItem extends Component {
                                 <span>{post.commentCount} comments | </span>
                                 <span onClick={() => this.upVote(post.id)}>Vote Up <FaCaretUp size="14"/> | </span>
                                 <span onClick={() => this.downVote(post.id)}>Vote Down <FaCaretDown size="14"/> | </span>
-                                <span><button onClick={() => this.editPost(post.id)}>Edit</button>| </span>
+                                <span>
+                                    <Link to={'/' + selectedCategory + '/' + post.id}>
+                                      <span onClick={() => this.editPost(post.id)}>Edit |</span>
+                                    </Link>
+                                </span>
                                 <span><button onClick={() => this.deletePost(post.id)}>Delete</button></span>
                             </td>
                         </tr>
@@ -83,7 +89,8 @@ function mapStateToProps(posts) {
 function mapDispatchToProps(dispatch) {
     return {
         voteUp: (data) => dispatch(upVotePost(data)),
-        voteDown: (data) => dispatch(downVotePost(data))
+        voteDown: (data) => dispatch(downVotePost(data)),
+        postDetail: (data) => dispatch(showPostDetail(data))
     }
 }
 

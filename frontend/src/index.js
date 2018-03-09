@@ -18,8 +18,6 @@ const store = createStore(
     )
 )
 
-console.log("*** Hey store is initialized: " + JSON.stringify(store))
-
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter><App /></BrowserRouter>

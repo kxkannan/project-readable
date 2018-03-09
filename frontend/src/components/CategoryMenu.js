@@ -13,10 +13,6 @@ class CategoryMenu extends Component {
     render() {
         const { categories } = this.props
 
-        console.log("CategoryMenu categories: " + JSON.stringify(categories))
-        categories.map((item, index) => (
-            console.log("item - " + JSON.stringify(item) + " index: " + index)
-        ))
         return (
             <div className="header category-menu">
                 <span className="title"><Link to="/">Readble</Link></span>

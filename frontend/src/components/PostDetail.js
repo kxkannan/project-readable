@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import { updatePost } from "../actions";
+
 // import FaCaretUp from 'react-icons/lib/fa/caret-up'
 // import FaCaretDown from 'react-icons/lib/fa/caret-down'
 
@@ -7,76 +9,115 @@ class PostDetail extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            category: props.match.params.category,
-            postId: props.match.params.postId,
-            post: {}
-        };
+        this.state = {description: ''}
+
+        this.handleChange = this.handleChange.bind(this)
+        this.updatePostBody = this.updatePostBody.bind(this)
+    }
+
+    handleChange = (event) => {
+      console.log("handleChange called")
+      this.setState({description: event.target.value})
+    }
+
+    updatePostBody = (event) => {
+        event.preventDefault();
+        this.props.updatePost({postId: this.props.posts.posts.selectedPostId, body: this.state.description })
+        this.props.history.push('/')
     }
 
     componentDidMount() {
-        console.log("componentDidMount posts: " + JSON.stringify(this.props.posts) + "  this.state.postId: " + this.state.postId)
-        if (Object.keys(this.props.posts.posts.byId).includes(this.state.postId)) {
-          let selectedPost = this.props.posts.posts.byId[this.state.postId]
-          this.setState({post: selectedPost})
-        }
-    }
-
-    updatePostBody = (body) => {
-        console.log("updating the post body" + (body))
+      let posts = this.props.posts.posts
+      let selectedPostId = this.props.posts.posts.selectedPostId
+      let body = (posts && selectedPostId) ? posts.byId[this.props.posts.posts.selectedPostId].body : ""
+      this.setState({
+          description: body
+      })
     }
 
     render() {
-        // const { posts } = this.props.posts
-        const { category, postId, post } = this.state
+        const { posts } = this.props.posts
 
-        console.log("PostDetail called " + postId)
-        console.log("post.body: " + JSON.stringify(this.state.post.body))
+        let selectedPost = posts ? posts.byId[posts.selectedPostId] : {}
 
-        // let post = posts.byId[postId]
+        console.log("*** render state description: " + this.state.description)
+        console.log("edit: " + !posts.edit + " selectedPost: " + JSON.stringify(selectedPost))
 
-        if (post.body) {
+        if (selectedPost && !posts.edit) {
             return (
                 <table>
                 <tbody>
                   <tr>
                     <td>
-                      <span className="postTitle">{post.title}</span>
-                      <span className="author">({post.author})</span>
+                      <span className="postTitle">{selectedPost.title}</span>
+                      <span className="author">({selectedPost.author})</span>
                     </td>
                   </tr>
                   <tr>
                     <td className="subtext">
-                        <span>{post.voteScore} votes | </span>
-                        <span>{new Date(post.timestamp).toDateString()} {new Date(post.timestamp).toLocaleTimeString()} | </span>
-                        <span>{post.commentCount} comments | </span>
+                        <span>{selectedPost.voteScore} votes | </span>
+                        <span>{new Date(selectedPost.timestamp).toDateString()} {new Date(selectedPost.timestamp).toLocaleTimeString()} | </span>
+                        <span>{selectedPost.commentCount} comments | </span>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      <p className="post-body">{post.body}</p>
+                      <p>{selectedPost.body}</p>
                     </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <button type="submit" onClick={this.updatePostBody(post.body)}>Update</button>
-                      </td>
                   </tr>
                  </tbody>
                 </table>
             )
         }
+        else if (selectedPost && posts.edit) {
+            return (
+                <form onSubmit={this.updatePostBody}>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <span className="postTitle">{selectedPost.title}</span>
+                            <span className="author">({selectedPost.author})</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="subtext">
+                            <span>{selectedPost.voteScore} votes | </span>
+                            <span>{new Date(selectedPost.timestamp).toDateString()} {new Date(selectedPost.timestamp).toLocaleTimeString()} | </span>
+                            <span>{selectedPost.commentCount} comments | </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea className="post-body" value={this.state.description} onChange={this.handleChange}></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Update"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+               </form>
+            )
+        }
         else {
-            return ( <p></p> )
+            return ( <p>No selected Post</p> )
         }
     }
 }
 
 function mapStateToProps(posts) {
-    return { posts }
+    return {
+        posts
+    }
 }
 
-function mapDispatchToProps(data) {
+function mapDispatchToProps(dispatch) {
+    return {
+        updatePost: (data) => dispatch(updatePost(data)),
+    }
 
 }
 

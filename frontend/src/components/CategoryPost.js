@@ -11,7 +11,6 @@ class CategoryPost extends Component {
 
         let selectedCategory = this.props.selectedCategory ? this.props.selectedCategory : "all"
 
-        console.log("selectedCategory in CategoryPost: " + selectedCategory)
         if (posts) {
             return (
                 <div className="categoryPosts">

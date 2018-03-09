@@ -24,6 +24,72 @@ const defaultData = {
     voteScore: -5,
     deleted: false,
     commentCount: 0
+  },
+  "cb9f9ce9a8aa76a63ffdd3": {
+    id: 'cb9f9ce9a8aa76a63ffdd3',
+    timestamp: 1468479767190,
+    title: 'React States are Easy!',
+    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    author: 'thingone',
+    category: 'react',
+    voteScore: -5,
+    deleted: false,
+    commentCount: 0
+  },
+  "6994a06849785c46070c4a": {
+    id: '6994a06849785c46070c4a',
+    timestamp: 1468479767190,
+    title: 'You can learning anything in Udacity!',
+    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    author: 'thingone',
+    category: 'udacity',
+    voteScore: -5,
+    deleted: false,
+    commentCount: 0
+  },
+  "3c0c926dbf525165c2d27d": {
+    id: '3c0c926dbf525165c2d27d',
+    timestamp: 1468479767190,
+    title: 'Udacity Python!',
+    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    author: 'thingone',
+    category: 'udacity',
+    voteScore: -5,
+    deleted: false,
+    commentCount: 0
+  },
+   "4ad545be4cf100d6c03969": {
+    id: '4ad545be4cf100d6c03969',
+    timestamp: 1468479767190,
+    title: 'React + Redux is awesome!',
+    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    author: 'thingone',
+    category: 'react',
+    voteScore: -5,
+    deleted: false,
+    commentCount: 0
+  },
+  "eeb22d28eadcc1042bb5c0": {
+    id: 'eeb22d28eadcc1042bb5c0',
+    timestamp: 1468479767190,
+    title: 'Redux reducers explained!',
+    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    author: 'thingone',
+    category: 'redux',
+    voteScore: -5,
+    deleted: false,
+    commentCount: 0
+  },
+  "76f66114749043b261d3f1": {
+    id: '76f66114749043b261d3f1',
+    timestamp: 1468479767190,
+    title: 'Redux store explained!',
+    body: 'Just kidding. It takes more than 10 minutes to learn technology.',
+    author: 'thingone',
+    category: 'redux',
+    voteScore: -5,
+    deleted: false,
+    commentCount: 0
   }
 }
 

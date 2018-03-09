@@ -3,6 +3,8 @@ export const DOWN_VOTE_POST = 'DOWN_VOTE_POST'
 export const EDIT_POST      = 'EDIT_POST'
 export const DELETE_POST    = 'DELETE_POST'
 export const ADD_POST       = 'ADD_POST'
+export const POST_DETAIL    = 'POST_DETAIL'
+export const UPDATE_POST    = 'UPDATE_POST'
 
 export function upVotePost ({ postId }) {
     return {
@@ -40,4 +42,20 @@ export function addPost(posts) {
     }
     console.log("retVal from addPost: " + JSON.stringify(retVal))
     return retVal
+}
+
+export function showPostDetail(posts) {
+    console.log("showPostDetail action: " + JSON.stringify(posts))
+    return {
+        type: POST_DETAIL,
+        posts
+    }
+}
+
+export function updatePost({postId, body}) {
+    return {
+        type: UPDATE_POST,
+        postId,
+        body
+    }
 }

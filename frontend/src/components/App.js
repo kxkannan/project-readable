@@ -27,7 +27,6 @@ class App extends Component {
   }
 
   render() {
-    console.log("app render - categories = " + JSON.stringify(this.state.categories))
 
     return (
       <div className="App">
@@ -35,11 +34,11 @@ class App extends Component {
         <CategoryMenu categories={this.state.categories} />
 
         {this.state.categories.map( (category) => {
-              return <Route key={category.path} path={'/' + category.path}  render={() => <CategoryPost selectedCategory={category.name} />} /> }
-           )
+                return <Route exact={true} key={category.path} path={'/' + category.path}  render={() => <CategoryPost selectedCategory={category.name} />} /> }
+             )
         }
+        <Route exact={true} path="/:category/:postId" component={PostDetail} />
         <Route exact={true} path="/" render={() => <CategoryPost selectedCategory="all"/> } />
-        <Route exact path="/:category/:postId" component={PostDetail} />
 
       </div>
     );
