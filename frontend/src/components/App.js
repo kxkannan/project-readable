@@ -39,7 +39,7 @@ class App extends Component {
            )
         }
         <Route exact={true} path="/" render={() => <CategoryPost selectedCategory="all"/> } />
-        <Route path="/:category/:postId" component={PostDetail} />
+        <Route exact path="/:category/:postId" component={PostDetail} />
 
       </div>
     );

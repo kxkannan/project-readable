@@ -6,23 +6,6 @@ import { Route } from 'react-router-dom'
 
 class CategoryPost extends Component {
 
-    upVote = (postId) => {
-        this.props.voteUp({postId: postId, posts: this.props.posts })
-    }
-
-    downVote = (postId) => {
-        this.props.voteDown({postId: postId, posts: this.props.posts })
-    }
-
-    editPost = (postId) => {
-       console.log("Edit post " + JSON.stringify(postId))
-    }
-
-    deletePost = (postId) => {
-        console.log("Delete post " + JSON.stringify(postId))
-    }
-
-
     render() {
         const { posts } = this.props.posts
 
@@ -32,11 +15,7 @@ class CategoryPost extends Component {
         if (posts) {
             return (
                 <div className="categoryPosts">
-                  <PostItem selectedCategory={selectedCategory} upVote={this.upVote}
-                            downVote={this.downVote}
-                            editPost={this.editPost}
-                            deletePost={this.deletePost}
-                  />
+                  <PostItem selectedCategory={selectedCategory} />
                 </div>
             );
         }

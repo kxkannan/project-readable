@@ -7,8 +7,24 @@ import {downVotePost, upVotePost} from "../actions";
 
 class PostItem extends Component {
 
+    upVote = (postId) => {
+        this.props.voteUp({postId: postId, posts: this.props.posts })
+    }
+
+    downVote = (postId) => {
+        this.props.voteDown({postId: postId, posts: this.props.posts })
+    }
+
+    editPost = (postId) => {
+        console.log("Edit post " + JSON.stringify(postId))
+    }
+
+    deletePost = (postId) => {
+        console.log("Delete post " + JSON.stringify(postId))
+    }
+
     render() {
-        const {selectedCategory, upVote, downVote, editPost, deletePost} = this.props
+        const { selectedCategory } = this.props
         const { posts } = this.props.posts
 
         console.log("posts in PostItem " + JSON.stringify(posts))
@@ -39,10 +55,10 @@ class PostItem extends Component {
                                 <span>{post.voteScore} votes | </span>
                                 <span>{new Date(post.timestamp).toDateString()} {new Date(post.timestamp).toLocaleTimeString()} | </span>
                                 <span>{post.commentCount} comments | </span>
-                                <span onClick={() => upVote(post.id)}>Vote Up <FaCaretUp size="14"/> | </span>
-                                <span onClick={() => downVote(post.id)}>Vote Down <FaCaretDown size="14"/> | </span>
-                                <span><button onClick={() => editPost(post.id)}>Edit</button>| </span>
-                                <span><button onClick={() => deletePost(post.id)}>Delete</button></span>
+                                <span onClick={() => this.upVote(post.id)}>Vote Up <FaCaretUp size="14"/> | </span>
+                                <span onClick={() => this.downVote(post.id)}>Vote Down <FaCaretDown size="14"/> | </span>
+                                <span><button onClick={() => this.editPost(post.id)}>Edit</button>| </span>
+                                <span><button onClick={() => this.deletePost(post.id)}>Delete</button></span>
                             </td>
                         </tr>
                         </tbody>
