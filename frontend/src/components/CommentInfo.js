@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 import ReactModal from 'react-modal'
-import { updateComment } from "../actions";
+import { updateComment, deleteComment } from "../actions";
 
 
 class CommentInfo extends Component {
@@ -16,13 +16,12 @@ class CommentInfo extends Component {
 
         }
 
-        this.editComment = this.editComment.bind(this)
-
     }
 
-    editComment = (event) => {
-        console.log("editComment clicked event target " + event.target.value)
-        this.setState({editing: true})
+    deleteComment = (postId, commentId, event) => {
+        console.log("deleteComment clicked event target")
+        console.log("deleteComment postId: " + postId + " commentId: " + commentId)
+        this.props.deleteComment( {postId, commentId })
     }
 
     handleOpenModal = (commentId, event) => {
@@ -39,15 +38,13 @@ class CommentInfo extends Component {
     }
 
     handleCommentChange = (event) => {
-       console.log("editingComment: " + event.target.value)
        this.setState({updatedComment: event.target.value })
        this.props.updateComment({commentId: this.state.commentId,
             updatedComment: this.state.updatedComment})
     }
 
     render() {
-        const { comments } = this.props
-        const { editing } = this.state
+        const { postId, comments } = this.props
 
         console.log("CommentInfo comments: " + JSON.stringify(comments))
 
@@ -62,7 +59,7 @@ class CommentInfo extends Component {
                                       <span className="subtext">{comment.author} |
                                          {new Date(comment.timestamp).toDateString()} {new Date(comment.timestamp).toLocaleTimeString()} |
                                          {comment.voteScore} votes | <button name="editButton" onClick={this.handleOpenModal.bind(this, comment.id)}>Edit
-                                       </button> | <button name="deleteComment">Delete</button>
+                                       </button> | <button name="deleteComment" onClick={this.deleteComment.bind(this, postId, comment.id)}>Delete</button>
                                       </span>
                                    </div>
                                    <div className="commentText">{comment.comment} </div>
@@ -94,7 +91,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateComment: (data) => dispatch(updateComment(data))
+        updateComment: (data) => dispatch(updateComment(data)),
+        deleteComment: (data) => dispatch(deleteComment(data))
     }
 }
 

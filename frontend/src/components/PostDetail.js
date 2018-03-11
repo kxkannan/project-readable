@@ -87,7 +87,7 @@ class PostDetail extends Component {
                         </tr>
                         {newCommentBox}
                         <tr><td><hr className="separator"></hr></td></tr>
-                        <CommentInfo comments={selectedPostComments} />
+                        <CommentInfo postId={selectedPost.id} comments={selectedPostComments} />
                         </tbody>
                     </table>
             )

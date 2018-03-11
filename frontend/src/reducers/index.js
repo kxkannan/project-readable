@@ -9,7 +9,8 @@ import {
     POST_DETAIL,
     UPDATE_POST,
     ADD_COMMENT,
-    UPDATE_COMMENT
+    UPDATE_COMMENT,
+    DELETE_COMMENT
 } from '../actions'
 
 
@@ -134,13 +135,8 @@ function posts(state = initialPosts, action) {
             }
 
         case UPDATE_COMMENT:
-            console.log("UPDATE_COMMENT state: " + JSON.stringify(state))
-            console.log("UPDATE_COMMENT  action: " + JSON.stringify(action) )
             return {
-               posts: state.posts,
-               selectedPostId: state.selectedPostId,
-               edit: state.edit,
-               categories: state.categories,
+               ...state,
                comments: {...state.comments,
                           byId: {
                               ...state.comments.byId,
@@ -148,6 +144,31 @@ function posts(state = initialPosts, action) {
                                                    comment: action.updatedComment}
                           }}
             }
+
+        case DELETE_COMMENT:
+            console.log("DELETE_COMMENT action: " + JSON.stringify(action))
+            console.log("DELETE_COMMENT state: " + JSON.stringify(state))
+
+            let newComments =  Object.keys(state.comments.byId).filter(commentId => commentId != action.commentId )
+            console.log("newComments: " + JSON.stringify(newComments))
+
+            return {
+                ...state,
+                comments: { ...state.comments,
+                            byId: newComments,
+                          },
+                posts: {
+                    ...state.posts,
+                    byId: {
+                        ...state.posts.byId,
+                        [action.postId]: {
+                                            ...state.posts.byId[action.postId],
+                                            comments: state.posts.byId[action.postId].comments.filter(comment => comment.id != action.commentId)
+                                         }
+                    }
+                }
+            }
+
 
         default:
             return state;

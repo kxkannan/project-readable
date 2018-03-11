@@ -7,6 +7,7 @@ export const POST_DETAIL    = 'POST_DETAIL'
 export const UPDATE_POST    = 'UPDATE_POST'
 export const ADD_COMMENT    = 'ADD_COMMENT'
 export const UPDATE_COMMENT = 'UPDATE_COMMENT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 export function upVotePost ({ postId }) {
     return {
@@ -72,4 +73,13 @@ export function updateComment( {commentId, updatedComment }) {
         commentId,
         updatedComment
     }
+}
+
+export function deleteComment( {postId, commentId} ) {
+    return {
+        type: DELETE_COMMENT,
+        postId,
+        commentId
+    }
+
 }
