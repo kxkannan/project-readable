@@ -7,19 +7,12 @@ import CategoryMenu from './CategoryMenu';
 import CategoryPost from './CategoryPost';
 import { addPost } from '../actions'
 import PostDetail from './PostDetail'
+import NewPost from './NewPost'
 
 
 class App extends Component {
-  state = {
-      categories: [],
-      allPosts: []
-  }
 
   componentDidMount() {
-
-    CategoriesAPI.categories().then((categories) => {
-      this.setState({categories})
-    })
 
     CategoriesAPI.all_posts().then((response) => {
       this.props.addAllPosts(response)
@@ -27,16 +20,18 @@ class App extends Component {
   }
 
   render() {
+    const { posts, categories } = this.props
 
     return (
       <div className="App">
 
-        <CategoryMenu categories={this.state.categories} />
+        <CategoryMenu/>
 
-        {this.state.categories.map( (category) => {
-                return <Route exact={true} key={category.path} path={'/' + category.path}  render={() => <CategoryPost selectedCategory={category.name} />} /> }
+        {categories.map( (category, idx) => {
+                return <Route exact={true} key={idx} path={'/' + category}  render={() => <CategoryPost selectedCategory={category} />} /> }
              )
         }
+        <Route path="/new_post" component={NewPost}/>
         <Route exact={true} path="/:category/:postId" component={PostDetail} />
         <Route exact={true} path="/" render={() => <CategoryPost selectedCategory="all"/> } />
 
@@ -45,8 +40,16 @@ class App extends Component {
   }
 }
 
-function mapStateToProps (posts) {
-    return posts
+function mapStateToProps ({posts } ) {
+    console.log("App mapStateToProps posts: " + JSON.stringify(posts))
+    console.log("App selectedPostId: " + posts.selectedPostId + " edit: " + posts.edit + " categories: " + JSON.stringify(posts.categories))
+    return {
+        posts: posts.posts,
+        selectedPostId: posts.selectedPostId,
+        edit: posts.edit,
+        categories: posts.categories,
+        comments: posts.comment
+    }
 }
 
 function mapDispatchToProps (dispatch) {

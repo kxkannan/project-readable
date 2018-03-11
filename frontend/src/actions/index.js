@@ -5,6 +5,8 @@ export const DELETE_POST    = 'DELETE_POST'
 export const ADD_POST       = 'ADD_POST'
 export const POST_DETAIL    = 'POST_DETAIL'
 export const UPDATE_POST    = 'UPDATE_POST'
+export const ADD_COMMENT    = 'ADD_COMMENT'
+export const UPDATE_COMMENT = 'UPDATE_COMMENT'
 
 export function upVotePost ({ postId }) {
     return {
@@ -27,7 +29,7 @@ export function editPost ( postId ) {
     }
 }
 
-export function deletePost ( postId ) {
+export function deletePost ( {postId} ) {
     return {
         type: DELETE_POST,
         postId
@@ -35,17 +37,13 @@ export function deletePost ( postId ) {
 }
 
 export function addPost(posts) {
-    console.log("addPost: " + JSON.stringify(posts))
-    let retVal = {
+    return {
         type: ADD_POST,
         posts
     }
-    console.log("retVal from addPost: " + JSON.stringify(retVal))
-    return retVal
 }
 
 export function showPostDetail(posts) {
-    console.log("showPostDetail action: " + JSON.stringify(posts))
     return {
         type: POST_DETAIL,
         posts
@@ -57,5 +55,21 @@ export function updatePost({postId, body}) {
         type: UPDATE_POST,
         postId,
         body
+    }
+}
+
+export function addComment( {postId, comment} )  {
+   return {
+       type: ADD_COMMENT,
+       postId,
+       comment
+   }
+}
+
+export function updateComment( {commentId, updatedComment }) {
+    return {
+        type: UPDATE_COMMENT,
+        commentId,
+        updatedComment
     }
 }

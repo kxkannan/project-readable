@@ -7,28 +7,44 @@ import {
     DELETE_POST,
     ADD_POST,
     POST_DETAIL,
-    UPDATE_POST
+    UPDATE_POST,
+    ADD_COMMENT,
+    UPDATE_COMMENT
 } from '../actions'
 
 
 const initialPosts = {
-      byId: {},
-      allIds: [],
-      selectedPostId: null,
-      edit: false
+    posts: {
+        byId: {},
+        allIds: [],
+    },
+    selectedPostId: null,
+    edit: false,
+    categories: [],
+    comments: []
 }
 
 function posts(state = initialPosts, action) {
 
-    let newState = Object.assign({}, state)
-
     switch (action.type) {
         case ADD_POST:
+            console.log("action.post: " + JSON.stringify(action.posts))
+            let newState = Object.assign({}, state)
             action.posts.map( (post) => {
-                newState.byId[post.id] = post
-                newState.allIds.push(post.id)
-                newState.selectedPostId = null
-                newState.edit = false
+                newState.posts.byId[post.id] = post
+                newState.posts.allIds.push(post.id)
+                newState.selectedPostId = state.selectedPostId
+                newState.edit = state.edit
+                newState.comments = state.comments
+                if (!newState.categories.includes(post.category)) {
+                    newState.categories.push(post.category)
+                }
+                console.log("ADD_POST map post: " + JSON.stringify(post) + " action.comment: " + JSON.stringify(action.comment))
+                if (newState.posts.byId[post.id].comments &&
+                      action.comment &&
+                        !newState.posts.byId[post.id].comments.includes(action.comment.id)) {
+                    newState.posts.byId[post.id].comments.push(action.comment.id)
+                }
                 return newState
             })
             return newState
@@ -61,28 +77,76 @@ function posts(state = initialPosts, action) {
             }
 
         case DELETE_POST:
-            return {
-                ...state,
-            }
-
-        case POST_DETAIL:
-            console.log("POST_DETAIL action: " + JSON.stringify(action))
-            return {
-                ...state,
-                selectedPostId: action.posts.postId,
-                edit: action.posts.edit
-            }
-
-        case UPDATE_POST:
-            console.log("UPDATE_POST post " + JSON.stringify(action))
-            console.log("UPDATE_POST state: " + JSON.stringify(state))
+            console.log("DELETE_POST action: " + JSON.stringify(action))
             return {
                 ...state,
                 byId: {
                     ...state.byId,
                     [action.postId]: {...state.byId[action.postId],
-                                      body: action.body}
+                                      deleted: true }
                 }
+            }
+
+        case POST_DETAIL:
+            return {
+                posts: {...state.posts},
+                selectedPostId: action.posts.postId,
+                edit: action.posts.edit,
+                categories: state.categories,
+                comments: state.comments
+            }
+
+        case UPDATE_POST:
+            console.log("UPDATE_POST state: " + JSON.stringify(state))
+            console.log("UPDATE_POST action: " + JSON.stringify(action))
+            return {
+                posts: {...state.posts,
+                      byId: {...state.posts.byId,
+                          [action.postId]: {...state.posts.byId[action.postId],
+                                             body: action.body}
+                      }
+                },
+                selectedPostId: state.selectedPostId,
+                edit: state.edit,
+                categories: state.categories,
+                comments: state.comments
+            }
+
+        case ADD_COMMENT:
+            return {
+                posts: {...state.posts,
+                       byId: {
+                           ...state.posts.byId,
+                           [action.postId]: {...state.posts.byId[action.postId],
+                                             comments: state.posts.byId[action.postId].comments.concat([action.comment.id])
+                                            }
+                       }
+                },
+                selectedPostId: state.selectedPostId,
+                edit: state.edit,
+                categories: state.categories,
+                comments: {...state.comments,
+                           byId: {
+                               ...state.comments.byId,
+                               [action.comment.id]: action.comment
+                           }
+                }
+            }
+
+        case UPDATE_COMMENT:
+            console.log("UPDATE_COMMENT state: " + JSON.stringify(state))
+            console.log("UPDATE_COMMENT  action: " + JSON.stringify(action) )
+            return {
+               posts: state.posts,
+               selectedPostId: state.selectedPostId,
+               edit: state.edit,
+               categories: state.categories,
+               comments: {...state.comments,
+                          byId: {
+                              ...state.comments.byId,
+                              [action.commentId]: {...state.comments.byId[action.commentId],
+                                                   comment: action.updatedComment}
+                          }}
             }
 
         default:

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
 import FaCaretUp from 'react-icons/lib/fa/caret-up'
 import FaCaretDown from 'react-icons/lib/fa/caret-down'
-import { downVotePost, upVotePost, showPostDetail } from "../actions";
+import { downVotePost, upVotePost, showPostDetail, deletePost } from "../actions";
 
 class PostItem extends Component {
 
@@ -16,12 +16,11 @@ class PostItem extends Component {
     }
 
     editPost = (postId) => {
-        console.log("Edit post " + JSON.stringify(postId))
         this.props.postDetail({postId: postId, edit: true})
     }
 
     deletePost = (postId) => {
-        console.log("Delete post " + JSON.stringify(postId))
+        this.props.deletePost({postId: postId})
     }
 
     selectedPost = (postId) => {
@@ -32,7 +31,10 @@ class PostItem extends Component {
         const { selectedCategory } = this.props
         const { posts } = this.props.posts
 
-        let filteredPosts = (selectedCategory === null || selectedCategory === "all") ? Object.values(posts.byId)  : Object.values(posts.byId).filter( (post) => post.category === selectedCategory)
+        console.log("selectedCategory in PostItem : " + selectedCategory)
+
+        let filteredPosts = (selectedCategory === null || selectedCategory === "all") ? Object.values(posts.posts.byId).filter( post => !post.deleted )  :
+                                      Object.values(posts.posts.byId).filter( (post) => post.category === selectedCategory && !post.deleted )
 
         return (
             <table className="posts" key="posts_table">
@@ -56,11 +58,11 @@ class PostItem extends Component {
                             <td className="subtext">
                                 <span>{post.voteScore} votes | </span>
                                 <span>{new Date(post.timestamp).toDateString()} {new Date(post.timestamp).toLocaleTimeString()} | </span>
-                                <span>{post.commentCount} comments | </span>
+                                <span>{post.comments.length} comments | </span>
                                 <span onClick={() => this.upVote(post.id)}>Vote Up <FaCaretUp size="14"/> | </span>
                                 <span onClick={() => this.downVote(post.id)}>Vote Down <FaCaretDown size="14"/> | </span>
                                 <span>
-                                    <Link to={'/' + selectedCategory + '/' + post.id}>
+                                    <Link to={'/' + post.category + '/' + post.id}>
                                       <span onClick={() => this.editPost(post.id)}>Edit |</span>
                                     </Link>
                                 </span>
@@ -90,7 +92,8 @@ function mapDispatchToProps(dispatch) {
     return {
         voteUp: (data) => dispatch(upVotePost(data)),
         voteDown: (data) => dispatch(downVotePost(data)),
-        postDetail: (data) => dispatch(showPostDetail(data))
+        postDetail: (data) => dispatch(showPostDetail(data)),
+        deletePost: (data) => dispatch(deletePost(data))
     }
 }
 

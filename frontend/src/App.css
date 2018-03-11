@@ -58,9 +58,57 @@
   text-align: left;
 }
 
+.showPostTitle {
+  font-size: 18px;
+  text-align: left;
+  margin-left: 50px;
+}
+
+.showSubtext {
+  font-size: 12px;
+  text-align: left;
+  padding-left: 50px;
+}
+
+.showPostBody {
+  margin-left: 50px;
+  text-align: left;
+}
+
+.bodyContainer {
+  border: 1px solid;
+  margin-left: 50px;
+}
+
+.addComment {
+  margin-left: 3px;
+}
+
+
+.newCommentTextArea {
+  width: 450px;
+  height: 100px;
+  margin-left: 50px;
+}
+
+.newCommentSubmit {
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.newCommentAuthor {
+  margin-left: 0px;
+  margin-top: 5px;
+}
+
 .author {
   font-size: 16px;
   color: #008800;
+}
+
+
+.showAuthor {
+  margin-left: 5px;
 }
 
 .posts {
@@ -70,6 +118,10 @@
 
 .categoryPosts {
   margin-left: 10px;
+}
+
+.separator {
+  margin-left: 50px;
 }
 
 .menu-actions {
@@ -89,9 +141,27 @@
   font-size: 12px;
 }
 
-.comments {
-
+.commentSubtext {
+  margin-left: 50px;
 }
+
+.commentText {
+  margin-top: 5px;
+  margin-left: 50px;
+  text-align: left;
+}
+
+.editablePost {
+  margin-left: 50px;
+  margin-top: 10px;
+}
+
+.editablePostBody {
+  margin-top: 5px;
+  margin-left: 50px;
+}
+
+
 
 .post-body {
   width: 250px;
