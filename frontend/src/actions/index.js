@@ -8,6 +8,8 @@ export const UPDATE_POST    = 'UPDATE_POST'
 export const ADD_COMMENT    = 'ADD_COMMENT'
 export const UPDATE_COMMENT = 'UPDATE_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const UP_VOTE_COMMENT = 'UP_VOTE_COMMENT'
+export const DOWN_VOTE_COMMENT = 'DOWN_VOTE_COMMENT'
 
 export function upVotePost ({ postId }) {
     return {
@@ -81,5 +83,21 @@ export function deleteComment( {postId, commentId} ) {
         postId,
         commentId
     }
+}
+
+export function upVoteComment( commentId ) {
+    return {
+        type: UP_VOTE_COMMENT,
+        commentId
+    }
 
 }
+
+export function downVoteComment( commentId ) {
+    return {
+        type: DOWN_VOTE_COMMENT,
+        commentId
+    }
+
+}
+

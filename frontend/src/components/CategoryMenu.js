@@ -16,11 +16,11 @@ class CategoryMenu extends Component {
 
         return (
             <div className="header category-menu">
-              <span className="title"><Link to="/">Readble</Link></span>
+              <span><Link to="/" className="title">Readble</Link></span>
               {categories.map((item, index) => (
                   <span className='category' key={index}><Link to={'/' + item}>{item}</Link></span>
                ))}
-             <span className="menu-actions"><Link to="/new_post">Submit Post</Link></span>
+             <span className="menu-actions"><Link to="/new_post" className="submitPost">Submit Post</Link></span>
              <span className="menu-actions">Order By:</span>
              <span className="sort-order">VoteScore |</span>
              <span className="sort-order">Timestamp</span>

@@ -41,8 +41,6 @@ class App extends Component {
 }
 
 function mapStateToProps ({posts } ) {
-    console.log("App mapStateToProps posts: " + JSON.stringify(posts))
-    console.log("App selectedPostId: " + posts.selectedPostId + " edit: " + posts.edit + " categories: " + JSON.stringify(posts.categories))
     return {
         posts: posts.posts,
         selectedPostId: posts.selectedPostId,

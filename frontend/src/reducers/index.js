@@ -10,7 +10,9 @@ import {
     UPDATE_POST,
     ADD_COMMENT,
     UPDATE_COMMENT,
-    DELETE_COMMENT
+    DELETE_COMMENT,
+    UP_VOTE_COMMENT,
+    DOWN_VOTE_COMMENT
 } from '../actions'
 
 
@@ -172,6 +174,34 @@ function posts(state = initialPosts, action) {
                 }
             }
 
+        case UP_VOTE_COMMENT:
+            console.log("UP_VOTE_COMMENT action: " + JSON.stringify(action))
+            console.log("UP_VOTE_COMMENT state comments: " + JSON.stringify(state.comments))
+            console.log("state.comments.byId[" + action.commentId + " " + JSON.stringify(state.comments.byId[action.commentId]))
+            return {
+                ...state,
+                comments: {...state.comments,
+                            byId: {
+                                ...state.comments.byId,
+                                [action.commentId]: {...state.comments.byId[action.commentId],
+                                                      voteScore: state.comments.byId[action.commentId].voteScore + 1
+                                                    }
+                            }}
+            }
+
+        case DOWN_VOTE_COMMENT:
+            return {
+                ...state,
+                comments: {...state.comments,
+                    byId: {
+                        ...state.comments.byId,
+                        [action.commentId]: {...state.comments.byId[action.commentId],
+                            voteScore: state.comments.byId[action.commentId].voteScore - 1
+                        }
+                    }}
+            }
+
+
 
         default:
             return state;
@@ -180,61 +210,6 @@ function posts(state = initialPosts, action) {
 }
 
 
-//function vote(state={}, action) {
-//
-//    let currentVoteScore = 0
-//    let newState = Object.assign({}, state)
-//
-//    switch (action.type) {
-//        case UP_VOTE_POST:
-//            //currentVoteScore = state.byId[action.postId].voteScore
-//            //newState.byId[action.postId].voteScore = currentVoteScore + 1
-//            //return  newState
-//            return {
-//                ...state,
-//                byId[action.postId].voteScore = byId[action.postId].voteScore + 1
-//            }
-//
-//        case DOWN_VOTE_POST:
-//            //currentVoteScore = state.byId[action.postId].voteScore
-//            //newState.byId[action.postId].voteScore = currentVoteScore - 1
-//            //return  newState
-//            return {
-//                ...state,
-//                byId[action.postId].voteScore = byId[action.postId].voteScore - 1
-//            }
-//
-//        case EDIT_POST:
-//            return {
-//                ...state,
-//            }
-//
-//        case DELETE_POST:
-//            return {
-//                ...state,
-//            }
-//
-//        default :
-//            return state
-//    }
-//}
-
-//function postDetail(state=initialPosts, action) {
-//
-//    switch (action.type) {
-//        case POST_DETAIL:
-//            return {
-//                ...state,
-//                selectedPostId: action.posts.postId
-//            }
-//        default:
-//            return state
-//    }
-//
-//}
-
 export default combineReducers({
-    posts,
-    //vote,
-    //postDetail
+    posts
 })

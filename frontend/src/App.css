@@ -91,10 +91,23 @@
   margin-left: 50px;
 }
 
-.newCommentSubmit {
+
+.commentButton {
   margin-left: 5px;
   margin-top: 5px;
+  border: 1px solid #0066cc;
+  background-color: #0099cc;
+  color: #ffffff;
+  padding: 5px 10px;
 }
+
+.commentButton:disabled,
+.commentButton[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
 
 .newCommentAuthor {
   margin-left: 0px;
@@ -161,9 +174,11 @@
   margin-left: 50px;
 }
 
-
-
 .post-body {
   width: 250px;
   height: 100px;
+}
+
+.submitPost {
+  text-decoration: none;
 }

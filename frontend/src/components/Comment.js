@@ -63,7 +63,7 @@ class Comment extends Component {
                         <span>
                           <label>Author: </label>
                           <input name="comment" className="commentInput"  value={author} onChange={this.handleAuthorChange} />
-                          <button className="newCommentSubmit" onClick={this.addComment}>Add Comment</button>
+                          <button disabled={!(this.state.comment && this.state.author)} className="commentButton" onClick={this.addComment}>Add Comment</button>
                         </span>
                       </div>
                     </form>
