@@ -19,7 +19,7 @@ class CategoryMenu extends Component {
               {categories.map((item, index) => (
                   <span className='category' key={index}><Link to={'/' + item}>{item}</Link></span>
                ))}
-             <span className="menu-actions"><Link to="/new_post" className="submitPost">Submit Post</Link></span>
+             <span className="menu-actions"><Link to="/new_post" className="submitPost">Add new post</Link></span>
              <span className="menu-actions">Order By:</span>
              <span className="sort-order">VoteScore |</span>
              <span className="sort-order">Timestamp</span>

@@ -80,10 +80,10 @@ class PostDetail extends Component {
                                 <p className="showPostBody">{selectedPost.body}</p>
                             </td>
                         </tr>
+                        </tbody>
                         {newCommentBox}
                         <tr><td><hr className="separator"></hr></td></tr>
                         <CommentInfo postId={selectedPost.id} comments={selectedPostComments} />
-                        </tbody>
                     </table>
             )
         }

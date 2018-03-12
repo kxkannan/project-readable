@@ -13,7 +13,7 @@ const customStyles = {
         right                 : 'auto',
         bottom                : 'auto',
         marginRight           : '-25%',
-        transform             : 'translate(-100%, -100%)'
+        transform             : 'translate(-70%, -70%)'
     }
 };
 
@@ -42,15 +42,23 @@ class CommentInfo extends Component {
 
     handleCloseModal = (event) => {
         event.preventDefault();
-        this.props.updateComment({commentId: this.state.commentId,
-            updatedComment: this.state.updatedComment})
+        if (this.state.updatedComment.length > 0) {
+            this.props.updateComment({
+                commentId: this.state.commentId,
+                updatedComment: this.state.updatedComment
+            })
+        }
         this.setState({showModal: false, comment_id: null, updatedComment: ""})
     }
 
     handleCommentChange = (event) => {
        this.setState({updatedComment: event.target.value })
-       this.props.updateComment({commentId: this.state.commentId,
-            updatedComment: this.state.updatedComment})
+        if (this.state.updatedComment) {
+            this.props.updateComment({
+                commentId: this.state.commentId,
+                updatedComment: this.state.updatedComment
+            })
+        }
     }
 
     upVoteComment = (commentId, event) => {

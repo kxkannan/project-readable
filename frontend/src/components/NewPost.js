@@ -72,27 +72,27 @@ class NewPost extends Component {
     render() {
         return (
             <form onSubmit={this.addNewPost}>
-                <table>
+                <table className="newPost">
                     <tbody>
                     <tr>
-                        <td><label>Title</label></td>
+                        <td><label>Title:</label></td>
                         <td> <input type="text" name="title" id="title" value={this.state.title} onChange={this.handleChange} /> </td>
                     </tr>
                     <tr>
-                        <td><label>Body</label></td>
+                        <td><label>Body:</label></td>
                         <td> <input name="body" id="body" value={this.state.body} onChange={this.handleBodyChange}/> </td>
                     </tr>
                     <tr>
-                        <td><label>Author</label></td>
+                        <td><label>Author:</label></td>
                         <td> <input name="author" id="author" value={this.state.author} onChange={this.handleAuthorChange}/> </td>
                     </tr>
                     <tr>
-                        <td><label>Category</label></td>
+                        <td><label>Category:</label></td>
                         <td> <input name="category" id="category" value={this.state.category} onChange={this.handleCategoryChange}/> </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="submit" value="Add Post"/>
+                            <input disabled={!(this.state.title && this.state.body && this.state.author && this.state.category)} className="commentButton" type="submit" value="Add Post"/>
                         </td>
                     </tr>
                     </tbody>
