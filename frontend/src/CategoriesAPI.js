@@ -19,7 +19,6 @@ export const categories = () =>
 export const posts = (category) =>
 fetch(`${api}/${category}/posts`, { headers })
     .then((res) => {
-        console.log(" response for api /:category/posts : " + category + " res : " + JSON.stringify(res))
         res.json()
     })
 

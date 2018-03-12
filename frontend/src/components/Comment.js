@@ -28,7 +28,6 @@ class Comment extends Component {
 
     addComment = (event) => {
         event.preventDefault();
-        console.log("comment addComment: " + this.props.postId + " comment: " + this.state.comment + " author: " + this.state.author)
         let newComment = {
             id: this.generateId(),
             comment: this.state.comment,

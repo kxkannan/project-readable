@@ -32,13 +32,10 @@ class CommentInfo extends Component {
     }
 
     deleteComment = (postId, commentId, event) => {
-        console.log("deleteComment clicked event target")
-        console.log("deleteComment postId: " + postId + " commentId: " + commentId)
         this.props.deleteComment( {postId, commentId })
     }
 
     handleOpenModal = (commentId, event) => {
-        console.log("Open Model for comment id: " + commentId)
         this.setState({showModal: true,
                        commentId: commentId})
     }
@@ -70,8 +67,6 @@ class CommentInfo extends Component {
 
     render() {
         const { postId, comments } = this.props
-
-        console.log("CommentInfo comments: " + JSON.stringify(comments))
 
 
             return (

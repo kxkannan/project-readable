@@ -31,8 +31,6 @@ class PostItem extends Component {
         const { selectedCategory } = this.props
         const { posts } = this.props.posts
 
-        console.log("selectedCategory in PostItem : " + selectedCategory)
-
         let filteredPosts = (selectedCategory === null || selectedCategory === "all") ? Object.values(posts.posts.byId).filter( post => !post.deleted )  :
                                       Object.values(posts.posts.byId).filter( (post) => post.category === selectedCategory && !post.deleted )
 

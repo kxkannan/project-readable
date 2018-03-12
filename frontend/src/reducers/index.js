@@ -31,7 +31,6 @@ function posts(state = initialPosts, action) {
 
     switch (action.type) {
         case ADD_POST:
-            console.log("action.post: " + JSON.stringify(action.posts))
             let newState = Object.assign({}, state)
             action.posts.map( (post) => {
                 newState.posts.byId[post.id] = post
@@ -42,7 +41,6 @@ function posts(state = initialPosts, action) {
                 if (!newState.categories.includes(post.category)) {
                     newState.categories.push(post.category)
                 }
-                console.log("ADD_POST map post: " + JSON.stringify(post) + " action.comment: " + JSON.stringify(action.comment))
                 if (newState.posts.byId[post.id].comments &&
                       action.comment &&
                         !newState.posts.byId[post.id].comments.includes(action.comment.id)) {
@@ -80,7 +78,6 @@ function posts(state = initialPosts, action) {
             }
 
         case DELETE_POST:
-            console.log("DELETE_POST action: " + JSON.stringify(action))
             return {
                 ...state,
                 byId: {
@@ -100,8 +97,6 @@ function posts(state = initialPosts, action) {
             }
 
         case UPDATE_POST:
-            console.log("UPDATE_POST state: " + JSON.stringify(state))
-            console.log("UPDATE_POST action: " + JSON.stringify(action))
             return {
                 posts: {...state.posts,
                       byId: {...state.posts.byId,
@@ -175,9 +170,6 @@ function posts(state = initialPosts, action) {
             }
 
         case UP_VOTE_COMMENT:
-            console.log("UP_VOTE_COMMENT action: " + JSON.stringify(action))
-            console.log("UP_VOTE_COMMENT state comments: " + JSON.stringify(state.comments))
-            console.log("state.comments.byId[" + action.commentId + " " + JSON.stringify(state.comments.byId[action.commentId]))
             return {
                 ...state,
                 comments: {...state.comments,

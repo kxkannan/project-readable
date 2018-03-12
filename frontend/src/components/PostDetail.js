@@ -22,7 +22,6 @@ class PostDetail extends Component {
 
     updatePostBody = (event) => {
         event.preventDefault();
-        console.log("updatePostBody: " + JSON.stringify(this.props))
         this.props.updatePost({postId: this.props.selectedPostId, body: this.state.description})
         this.props.history.push('/')
     }
@@ -43,11 +42,9 @@ class PostDetail extends Component {
         let newCommentBox = <Comment postId={selectedPostId} />
 
         let commentIds = selectedPost.comments
-        console.log("commentIds: " + commentIds)
         let selectedPostComments = []
         if (comments && comments.byId) {
             selectedPostComments = Object.keys(comments.byId).map(commentId => {
-                console.log("map commentId: " + commentId)
                 if (commentIds.includes(commentId)) {
                     return comments.byId[commentId]
                 }
@@ -57,8 +54,6 @@ class PostDetail extends Component {
         // remove the null comments
         selectedPostComments = selectedPostComments.filter( comment => comment )
 
-        console.log("PostDetail selectedPost: " + JSON.stringify(selectedPost))
-        console.log("PostDetail selectedPost comments: " + JSON.stringify(selectedPostComments))
 
         if (selectedPost && !edit) {
             return (
@@ -138,7 +133,6 @@ class PostDetail extends Component {
 }
 
 function mapStateToProps( state ) {
-    console.log("PostDetail mapStateToProps state: " + JSON.stringify(state))
     return {
         posts: state.posts.posts,
         selectedPostId: state.posts.selectedPostId,
