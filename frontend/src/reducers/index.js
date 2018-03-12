@@ -146,11 +146,14 @@ function posts(state = initialPosts, action) {
             }
 
         case DELETE_COMMENT:
-            console.log("DELETE_COMMENT action: " + JSON.stringify(action))
-            console.log("DELETE_COMMENT state: " + JSON.stringify(state))
+            let newComments =  {}
+            Object.keys(state.comments.byId).filter( (commentId) => {
+                if ( commentId != action.commentId ) {
+                    newComments[commentId] = state.comments.byId[commentId]
+                }
+            })
 
-            let newComments =  Object.keys(state.comments.byId).filter(commentId => commentId != action.commentId )
-            console.log("newComments: " + JSON.stringify(newComments))
+            let newCommentIds = state.posts.byId[action.postId].comments.filter ( commentId => commentId != action.commentId )
 
             return {
                 ...state,
@@ -163,7 +166,7 @@ function posts(state = initialPosts, action) {
                         ...state.posts.byId,
                         [action.postId]: {
                                             ...state.posts.byId[action.postId],
-                                            comments: state.posts.byId[action.postId].comments.filter(comment => comment.id != action.commentId)
+                                            comments: newCommentIds
                                          }
                     }
                 }
