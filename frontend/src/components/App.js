@@ -21,7 +21,7 @@ class App extends Component {
     }
 
     render() {
-        const { posts, categories } = this.props
+        const { categories } = this.props
 
         return (
             <div className="App">

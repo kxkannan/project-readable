@@ -48,7 +48,6 @@ class Comment extends Component {
     }
 
     render() {
-        const { postId  } = this.props
         const { comment, author } = this.state
 
         return (

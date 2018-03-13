@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux'
 import PostItem from './PostItem';
 import {downVotePost, upVotePost} from "../actions";
-import { Route } from 'react-router-dom'
 
 class CategoryPost extends Component {
 

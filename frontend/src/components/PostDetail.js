@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import { updatePost } from "../actions";
 import Comment from './Comment'
 import CommentList from './CommentList'
-import { Switch, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import NotFoundPage from './NotFoundPage'
 
 
@@ -52,9 +52,7 @@ class PostDetail extends Component {
         let selectedPostComments = []
         if (comments && comments.byId) {
             selectedPostComments = Object.keys(comments.byId).map(commentId => {
-                if (commentIds.includes(commentId)) {
-                    return comments.byId[commentId]
-                }
+                return (commentIds.includes(commentId)) ?  comments.byId[commentId] : null
             })
         }
 

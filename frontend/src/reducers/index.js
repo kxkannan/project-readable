@@ -52,7 +52,6 @@ function posts(state = initialPosts, action) {
             return newState
 
         case UP_VOTE_POST:
-            console.log("UP_VOTE_POST action: " + JSON.stringify(action))
             return {
                 ...state,
                 posts: {
@@ -68,7 +67,6 @@ function posts(state = initialPosts, action) {
             }
 
         case DOWN_VOTE_POST:
-            console.log("DOWN_VOTE_POST action: " + JSON.stringify(action))
             return {
                 ...state,
                 posts: {
@@ -162,12 +160,11 @@ function posts(state = initialPosts, action) {
         case DELETE_COMMENT:
             let newComments =  {}
             Object.keys(state.comments.byId).filter( (commentId) => {
-                if ( commentId != action.commentId ) {
-                    newComments[commentId] = state.comments.byId[commentId]
-                }
+                return ( commentId !== action.commentId ) ?
+                    newComments[commentId] = state.comments.byId[commentId] : null
             })
 
-            let newCommentIds = state.posts.byId[action.postId].comments.filter ( commentId => commentId != action.commentId )
+            let newCommentIds = state.posts.byId[action.postId].comments.filter ( commentId => commentId !== action.commentId )
 
             return {
                 ...state,
@@ -215,18 +212,18 @@ function posts(state = initialPosts, action) {
             let postsById = {"byId": {}}
             let newPosts =  {}
 
-            if (!sortOrder || sortOrder == "ASC") {
+            if (!sortOrder || sortOrder === "ASC") {
                 newPosts = Object.keys(state.posts.byId).map((key) => {
                                        return state.posts.byId[key]
                                    }).sort((a, b) => {
-                                       return action.sortKey.sortBy == "votes" ? (b.voteScore - a.voteScore) : (b.timestamp - a.timestamp)
+                                       return action.sortKey.sortBy === "votes" ? (b.voteScore - a.voteScore) : (b.timestamp - a.timestamp)
                            })
                 sortOrder = "DESC"
             }
             else {
                 newPosts = Object.keys(state.posts.byId).map((key) => {
                     return state.posts.byId[key] }).sort((a, b) => {
-                                    return action.sortKey.sortBy == "votes" ? (a.voteScore - b.voteScore) : (a.timestamp - b.timestamp)
+                                    return action.sortKey.sortBy === "votes" ? (a.voteScore - b.voteScore) : (a.timestamp - b.timestamp)
                 })
                 sortOrder = "ASC"
             }

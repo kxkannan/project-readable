@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import { Link, withRouter } from 'react-router-dom'
 import {connect} from 'react-redux'
 import ReactModal from 'react-modal'
 import { updateComment, deleteComment, upVoteComment, downVoteComment } from "../actions";
@@ -80,8 +79,8 @@ class CommentList extends Component {
             return (
                 <tbody>
                 {comments.map(comment => {
-                    if (comment) {
-                        return (<tr key={comment.id}>
+                    return comment ? (
+                        <tr key={comment.id}>
                                 <td>
                                     <div className="commentSubtext">
                                       <span className="subtext">
@@ -108,10 +107,7 @@ class CommentList extends Component {
                                 </td>
                             </tr>
                         )
-                    }
-                    else {
-                        <p>No Comments</p>
-                    }
+                    :  <p>No Comments</p>
                 })}
                 </tbody>
             )
