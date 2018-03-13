@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import { updatePost } from "../actions";
 import { Route } from 'react-router-dom'
 import NotFoundPage from './NotFoundPage'
 import PostDetailReadonly from './PostDetailReadonly'
@@ -17,14 +16,16 @@ class PostDetail extends Component {
             selectedPost = posts.byId[selectedPostId]
         }
 
-        if (selectedPost && selectedPost.id && !edit) {
-            return ( <PostDetailReadonly/> )
-        }
-        else if (selectedPost && selectedPost.id && edit) {
-            return ( <PostDetailEditable history={this.props.history}/> )
-        }
-        else {
-            return <Route component={NotFoundPage}/>
+        console.log("selectedPost: " + JSON.stringify(selectedPost) + " edit: " + edit)
+        let editable = (selectedPost && selectedPost.id && edit)
+
+        switch (editable) {
+            case true:
+                return ( <PostDetailEditable history={this.props.history}/> )
+            case false:
+                return ( <PostDetailReadonly/> )
+            default:
+                return <Route component={NotFoundPage}/>
         }
     }
 }
@@ -37,11 +38,5 @@ function mapStateToProps( state ) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        updatePost: (data) => dispatch(updatePost(data)),
-    }
 
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);
+export default connect(mapStateToProps)(PostDetail);

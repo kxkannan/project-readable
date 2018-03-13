@@ -35,24 +35,12 @@ class PostDetailEditable extends Component {
     }
 
     render() {
-        const { posts, selectedPostId, comments } = this.props
+        const { posts, selectedPostId } = this.props
 
         let selectedPost = {}
         if (posts && selectedPostId && posts.byId[selectedPostId] && !posts.byId[selectedPostId].deleted ) {
             selectedPost = posts.byId[selectedPostId]
         }
-
-        let commentIds = selectedPost.comments
-        let selectedPostComments = [];
-        if (comments && comments.byId) {
-            selectedPostComments = Object.keys(comments.byId).map(commentId => {
-                return (commentIds.includes(commentId)) ?  comments.byId[commentId] : null
-            })
-
-            // remove the null comments
-            selectedPostComments = selectedPostComments.filter( comment => comment )
-        }
-
 
         return (
             <form onSubmit={this.updatePostBody}>
