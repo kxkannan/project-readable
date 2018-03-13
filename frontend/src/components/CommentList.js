@@ -24,6 +24,7 @@ class CommentList extends Component {
         this.state = {
            showModal: false,
            commentId: null,
+           selectedComment: {},
            updatedComment: ""
 
         }
@@ -36,7 +37,9 @@ class CommentList extends Component {
 
     handleOpenModal = (commentId, event) => {
         this.setState({showModal: true,
-                       commentId: commentId})
+                       commentId: commentId,
+                       selectedComment: this.props.comments.byId[commentId]
+                      })
     }
 
     handleCloseModal = (event) => {
@@ -73,14 +76,33 @@ class CommentList extends Component {
 
 
     render() {
-        const { postId, comments } = this.props
+        const { posts, selectedPostId, comments } = this.props
+
+        console.log("this.props.comments: " + JSON.stringify(comments))
+
+        let selectedPost = {}
+        if (posts && selectedPostId && posts.byId[selectedPostId] && !posts.byId[selectedPostId].deleted ) {
+            selectedPost = posts.byId[selectedPostId]
+        }
+
+        let commentIds = selectedPost.comments
+        let selectedPostComments = [];
+        if (comments && comments.byId) {
+            selectedPostComments = Object.keys(comments.byId).map(commentId => {
+                return (commentIds.includes(commentId)) ?  comments.byId[commentId] : null
+            })
+
+            // remove the null comments
+            selectedPostComments = selectedPostComments.filter( comment => comment )
+        }
 
 
             return (
                 <tbody>
-                {comments.map(comment => {
+                {selectedPostComments.map(comment => {
+                    console.log("Processing comment: " + JSON.stringify(comment))
                     return comment ? (
-                        <tr key={comment.id}>
+                        <tr key={comment.id} id={comment.id}>
                                 <td>
                                     <div className="commentSubtext">
                                       <span className="subtext">
@@ -90,7 +112,7 @@ class CommentList extends Component {
                                           <span onClick={this.upVoteComment.bind(this, comment.id)}>Vote Up <FaCaretUp size="14"/> | </span>
                                           <span onClick={this.downVoteComment.bind(this, comment.id)}>Vote Down <FaCaretDown size="14"/> | </span>
                                           <button name="editButton" onClick={this.handleOpenModal.bind(this, comment.id)}>Edit </button> |
-                                          <button name="deleteComment" onClick={this.deleteComment.bind(this, postId, comment.id)}>Delete</button>
+                                          <button name="deleteComment" onClick={this.deleteComment.bind(this, selectedPostId, comment.id)}>Delete</button>
                                       </span>
                                    </div>
                                    <div className="commentText">{comment.comment} </div>
@@ -98,7 +120,7 @@ class CommentList extends Component {
                                         isOpen={this.state.showModal} style={customStyles}>
                                         <div><h4>Edit comment</h4></div>
                                         <div>
-                                          <textarea name="editComment" defaultValue={comment.comment} onChange={this.handleCommentChange} />
+                                          <textarea name="editComment" defaultValue={this.state.selectedComment.comment} onChange={this.handleCommentChange} />
                                         </div>
                                         <div>
                                          <button onClick={this.handleCloseModal}>Submit</button>
@@ -117,8 +139,11 @@ class CommentList extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log("CommentList state.comments: " + JSON.stringify(state.posts.comments))
     return {
-
+        posts: state.posts.posts,
+        selectedPostId: state.posts.selectedPostId,
+        comments: state.posts.comments
     }
 }
 

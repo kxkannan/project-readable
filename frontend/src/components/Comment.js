@@ -35,7 +35,7 @@ class Comment extends Component {
             timestamp: Date.now(),
             voteScore: 0
         }
-        this.props.addComment({ postId: this.props.postId, comment: newComment })
+        this.props.addComment({ postId: this.props.selectedPostId, comment: newComment })
         this.setState({comment: "", author: ""})
     }
 
@@ -76,7 +76,8 @@ class Comment extends Component {
 
 function mapStateToProps(state) {
     return {
-        comments: state.comments
+        comments: state.comments,
+        selectedPostId: state.posts.selectedPostId,
     }
 
 }
