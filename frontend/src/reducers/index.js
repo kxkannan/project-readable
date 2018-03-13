@@ -20,7 +20,6 @@ import {
 const initialPosts = {
     posts: {
         byId: {},
-        allIds: [],
     },
     selectedPostId: null,
     edit: false,
@@ -36,7 +35,6 @@ function posts(state = initialPosts, action) {
             let newState = Object.assign({}, state)
             action.posts.map( (post) => {
                 newState.posts.byId[post.id] = post
-                newState.posts.allIds.push(post.id)
                 newState.selectedPostId = state.selectedPostId
                 newState.edit = state.edit
                 newState.comments = state.comments
@@ -81,12 +79,16 @@ function posts(state = initialPosts, action) {
             }
 
         case DELETE_POST:
+            console.log("DELETE_POST state: " + JSON.stringify(state))
+            console.log("DELETE_POST action: " + JSON.stringify(action))
             return {
                 ...state,
-                byId: {
-                    ...state.byId,
-                    [action.postId]: {...state.byId[action.postId],
-                                      deleted: true }
+                posts: {...state.posts,
+                    byId: { ...state.posts.byId,
+                           [action.postId]: { ...state.posts.byId[action.postId],
+                                               deleted: true
+                        }
+                    }
                 }
             }
 

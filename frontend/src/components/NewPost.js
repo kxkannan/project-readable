@@ -2,9 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { addPost } from "../actions";
 
-// import FaCaretUp from 'react-icons/lib/fa/caret-up'
-// import FaCaretDown from 'react-icons/lib/fa/caret-down'
-
 class NewPost extends Component {
 
     constructor(props) {

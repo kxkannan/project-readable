@@ -8,39 +8,45 @@ import CategoryPost from './CategoryPost';
 import { addPost } from '../actions'
 import PostDetail from './PostDetail'
 import NewPost from './NewPost'
+import NotFoundPage from './NotFoundPage'
 
 
 class App extends Component {
 
-  componentDidMount() {
+    componentDidMount() {
 
-    CategoriesAPI.all_posts().then((response) => {
-      this.props.addAllPosts(response)
-    })
-  }
+        CategoriesAPI.all_posts().then((response) => {
+            this.props.addAllPosts(response)
+        })
+    }
 
-  render() {
-    const { posts, categories } = this.props
+    render() {
+        const { posts, categories } = this.props
 
-    return (
-      <div className="App">
+        return (
+            <div className="App">
 
-        <CategoryMenu/>
+                <CategoryMenu/>
 
-        {categories.map( (category, idx) => {
-                return <Route exact={true} key={idx} path={'/' + category}  render={() => <CategoryPost selectedCategory={category} />} /> }
-             )
-        }
-        <Route path="/new_post" component={NewPost}/>
-        <Route exact={true} path="/:category/:postId" component={PostDetail} />
-        <Route exact={true} path="/" render={() => <CategoryPost selectedCategory="all"/> } />
+                <Switch>
+                    {categories.map((category, idx) => {
+                            return <Route exact={true} key={idx} path={'/' + category}
+                                          render={() => <CategoryPost selectedCategory={category} />}/>
+                        }
+                    )
+                    }
+                    <Route path="/new_post" exact component={NewPost}/>
+                    <Route path="/:category/:postId" exact component={PostDetail}/>
+                    <Route path="/" exact render={() => <CategoryPost selectedCategory="all"/> }/>
+                    <Route component={NotFoundPage}/>
+                </Switch>
 
-      </div>
-    );
-  }
+            </div>
+        );
+    }
 }
 
-function mapStateToProps ({posts } ) {
+function mapStateToProps({posts }) {
     return {
         posts: posts.posts,
         selectedPostId: posts.selectedPostId,
@@ -50,7 +56,7 @@ function mapStateToProps ({posts } ) {
     }
 }
 
-function mapDispatchToProps (dispatch) {
+function mapDispatchToProps(dispatch) {
     return {
         addAllPosts: (data) => dispatch(addPost(data)),
     }

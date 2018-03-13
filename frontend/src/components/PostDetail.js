@@ -3,6 +3,9 @@ import {connect} from 'react-redux'
 import { updatePost } from "../actions";
 import Comment from './Comment'
 import CommentInfo from './CommentInfo'
+import { Switch, Route } from 'react-router-dom'
+import NotFoundPage from './NotFoundPage'
+
 
 class PostDetail extends Component {
 
@@ -38,7 +41,12 @@ class PostDetail extends Component {
     render() {
         const { posts, selectedPostId, edit, comments } = this.props
 
-        let selectedPost = (posts && selectedPostId) ? posts.byId[selectedPostId] : {}
+        //let selectedPost = (posts && selectedPostId) ? posts.byId[selectedPostId] : {}
+        let selectedPost = {}
+        if (posts && selectedPostId && posts.byId[selectedPostId] && !posts.byId[selectedPostId].deleted ) {
+            selectedPost = posts.byId[selectedPostId]
+        }
+
         let newCommentBox = <Comment postId={selectedPostId} />
 
         let commentIds = selectedPost.comments
@@ -55,7 +63,7 @@ class PostDetail extends Component {
         selectedPostComments = selectedPostComments.filter( comment => comment )
 
 
-        if (selectedPost && !edit) {
+        if (selectedPost && selectedPost.id && !edit) {
             return (
 
                     <table>
@@ -87,7 +95,7 @@ class PostDetail extends Component {
                     </table>
             )
         }
-        else if (selectedPost && edit) {
+        else if (selectedPost && selectedPost.id && edit) {
             return (
                 <form onSubmit={this.updatePostBody}>
                     <table>
@@ -127,7 +135,7 @@ class PostDetail extends Component {
             )
         }
         else {
-            return ( <p>No selected Post</p> )
+            return <Route component={NotFoundPage}/>
         }
     }
 }
