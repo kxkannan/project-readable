@@ -52,23 +52,33 @@ function posts(state = initialPosts, action) {
             return newState
 
         case UP_VOTE_POST:
+            console.log("UP_VOTE_POST action: " + JSON.stringify(action))
             return {
                 ...state,
-                byId: {
-                    ...state.byId,
-                    [action.postId]: {...state.byId[action.postId],
-                                       voteScore: state.byId[action.postId].voteScore + 1
-                                     }
+                posts: {
+                    ...state.posts,
+                    byId: {
+                        ...state.posts.byId,
+                        [action.postId]: {
+                            ...state.posts.byId[action.postId],
+                            voteScore: state.posts.byId[action.postId].voteScore + 1
+                        }
+                    }
                 }
             }
 
         case DOWN_VOTE_POST:
+            console.log("DOWN_VOTE_POST action: " + JSON.stringify(action))
             return {
                 ...state,
-                byId: {
-                    ...state.byId,
-                    [action.postId]: {...state.byId[action.postId],
-                        voteScore: state.byId[action.postId].voteScore - 1
+                posts: {
+                    ...state.posts,
+                    byId: {
+                        ...state.posts.byId,
+                        [action.postId]: {
+                            ...state.posts.byId[action.postId],
+                            voteScore: state.posts.byId[action.postId].voteScore - 1
+                        }
                     }
                 }
             }

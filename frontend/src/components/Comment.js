@@ -52,6 +52,7 @@ class Comment extends Component {
         const { comment, author } = this.state
 
         return (
+            <tbody>
             <tr className="newComment">
                 <td>
                     <form onSubmit={this.addComment}>
@@ -68,6 +69,7 @@ class Comment extends Component {
                     </form>
                 </td>
             </tr>
+            </tbody>
         )
     }
 
