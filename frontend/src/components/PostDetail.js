@@ -41,7 +41,6 @@ class PostDetail extends Component {
     render() {
         const { posts, selectedPostId, edit, comments } = this.props
 
-        //let selectedPost = (posts && selectedPostId) ? posts.byId[selectedPostId] : {}
         let selectedPost = {}
         if (posts && selectedPostId && posts.byId[selectedPostId] && !posts.byId[selectedPostId].deleted ) {
             selectedPost = posts.byId[selectedPostId]
