@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { updatePost } from "../actions";
 import Comment from './Comment'
-import CommentInfo from './CommentInfo'
+import CommentList from './CommentList'
 import { Switch, Route } from 'react-router-dom'
 import NotFoundPage from './NotFoundPage'
 
@@ -95,7 +95,7 @@ class PostDetail extends Component {
                               <td><hr className="separator"></hr></td>
                           </tr>
                         </tbody>
-                        <CommentInfo postId={selectedPost.id} comments={selectedPostComments} />
+                        <CommentList postId={selectedPost.id} comments={selectedPostComments} />
                     </table>
             )
         }

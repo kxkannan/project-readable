@@ -18,7 +18,7 @@ const customStyles = {
 };
 
 
-class CommentInfo extends Component {
+class CommentList extends Component {
 
     constructor(props) {
         super(props)
@@ -136,5 +136,5 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommentInfo)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentList)
 
