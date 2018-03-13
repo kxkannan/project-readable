@@ -59,7 +59,7 @@ class PostDetailEditable extends Component {
                             <span>{selectedPost.voteScore} votes | </span>
                             <span>{new Date(selectedPost.timestamp).toDateString()} {new Date(selectedPost.timestamp).toLocaleTimeString()}
                                 | </span>
-                            <span>{selectedPost.commentCount} comments | </span>
+                            <span>{selectedPost.comments.length} comments | </span>
                         </td>
                     </tr>
                     <tr>

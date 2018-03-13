@@ -16,18 +16,6 @@ class PostDetailReadonly extends Component {
             selectedPost = posts.byId[selectedPostId]
         }
 
-        let commentIds = selectedPost.comments
-        let selectedPostComments = []
-        if (comments && comments.byId) {
-            selectedPostComments = Object.keys(comments.byId).map(commentId => {
-                return (commentIds.includes(commentId)) ?  comments.byId[commentId] : null
-            })
-
-            // remove the null comments
-            selectedPostComments = selectedPostComments.filter( comment => comment )
-        }
-
-
         return (
         <table>
             <tbody>
@@ -45,7 +33,7 @@ class PostDetailReadonly extends Component {
                 <td className="showSubtext">
                     <span>{selectedPost.voteScore} votes | </span>
                     <span>{new Date(selectedPost.timestamp).toDateString()} {new Date(selectedPost.timestamp).toLocaleTimeString()} |</span>
-                    <span>{selectedPostComments.length} comments |</span>
+                    <span>{selectedPost.comments.length} comments |</span>
                 </td>
             </tr>
             <tr className="bodyContainer">
