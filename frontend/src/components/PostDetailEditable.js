@@ -46,16 +46,14 @@ class PostDetailEditable extends Component {
             <form onSubmit={this.updatePostBody}>
                 <table>
                     <tbody>
-                    <tr>
+                    <tr className="showPostTitle">
                         <td>
-                            <div className="editablePost">
-                                <span className="postTitle">{selectedPost.title}</span>
-                                <span className="author">({selectedPost.author})</span>
-                            </div>
+                           <span className="showPostTitle">{selectedPost.title}</span>
+                           <span className="showAuthor">({selectedPost.author})</span>
                         </td>
                     </tr>
-                    <tr>
-                        <td className="subtext">
+                    <tr className="showSubtext">
+                        <td className="showSubtext">
                             <span>{selectedPost.voteScore} votes | </span>
                             <span>{new Date(selectedPost.timestamp).toDateString()} {new Date(selectedPost.timestamp).toLocaleTimeString()}
                                 | </span>
@@ -64,15 +62,15 @@ class PostDetailEditable extends Component {
                     </tr>
                     <tr>
                         <td>
-                            <div className="editablePostBody">
-                                <textarea className="post-body" value={this.state.description}
+                            <div>
+                                <textarea className="editablePostBody" value={this.state.description}
                                           onChange={this.handleChange}></textarea>
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr className="updatePostButton">
                         <td>
-                            <input type="submit" value="Update Post"/>
+                            <input className="updatePostButton" type="submit" value="Update Post"/>
                         </td>
                     </tr>
                     </tbody>
