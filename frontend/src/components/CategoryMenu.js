@@ -2,11 +2,19 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-
+import { sortPosts } from "../actions";
 
 
 class CategoryMenu extends Component {
 
+    constructor(props) {
+        super(props)
+        this.sortPosts = this.sortPosts.bind(this)
+    }
+
+    sortPosts = (sortBy, event) => {
+       this.props.sortPosts({sortBy})
+    }
 
     render() {
         const { posts } = this.props
@@ -21,8 +29,8 @@ class CategoryMenu extends Component {
                ))}
              <span className="menu-actions"><Link to="/new_post" className="submitPost">Add new post</Link></span>
              <span className="menu-actions">Order By:</span>
-             <span className="sort-order">VoteScore |</span>
-             <span className="sort-order">Timestamp</span>
+             <span className="sort-order" onClick={this.sortPosts.bind(this, "votes")}>VoteScore |</span>
+             <span className="sort-order" onClick={this.sortPosts.bind(this, "timestamp")}>Timestamp</span>
             </div>
         );
 
@@ -35,4 +43,10 @@ function mapStateToProps(posts) {
     }
 }
 
-export default connect(mapStateToProps)(CategoryMenu);
+function mapDispatchToProps(dispatch) {
+    return {
+        sortPosts: (data) => dispatch(sortPosts(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryMenu);

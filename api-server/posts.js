@@ -21,7 +21,7 @@ const defaultData = {
     body: 'Just kidding. It takes more than 10 minutes to learn technology.',
     author: 'thingone',
     category: 'redux',
-    voteScore: -5,
+    voteScore: 4,
     deleted: false,
     comments:  []
   },
@@ -32,7 +32,7 @@ const defaultData = {
     body: 'Just kidding. It takes more than 10 minutes to learn technology.',
     author: 'thingone',
     category: 'react',
-    voteScore: -5,
+    voteScore: 7,
     deleted: false,
     comments:  []
   },
@@ -43,7 +43,7 @@ const defaultData = {
     body: 'Just kidding. It takes more than 10 minutes to learn technology.',
     author: 'thingone',
     category: 'udacity',
-    voteScore: -5,
+    voteScore: 2,
     deleted: false,
     comments:  []
   },
@@ -65,7 +65,7 @@ const defaultData = {
     body: 'Just kidding. It takes more than 10 minutes to learn technology.',
     author: 'thingone',
     category: 'react',
-    voteScore: -5,
+    voteScore: 3,
     deleted: false,
     comments:  []
   },
@@ -76,7 +76,7 @@ const defaultData = {
     body: 'Just kidding. It takes more than 10 minutes to learn technology.',
     author: 'thingone',
     category: 'redux',
-    voteScore: -5,
+    voteScore: 1,
     deleted: false,
     comments:  []
   },
@@ -87,7 +87,7 @@ const defaultData = {
     body: 'Just kidding. It takes more than 10 minutes to learn technology.',
     author: 'thingone',
     category: 'redux',
-    voteScore: -5,
+    voteScore: 0,
     deleted: false,
     comments:  []
   }

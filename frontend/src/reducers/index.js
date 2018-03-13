@@ -12,7 +12,8 @@ import {
     UPDATE_COMMENT,
     DELETE_COMMENT,
     UP_VOTE_COMMENT,
-    DOWN_VOTE_COMMENT
+    DOWN_VOTE_COMMENT,
+    SORT_POSTS
 } from '../actions'
 
 
@@ -24,7 +25,8 @@ const initialPosts = {
     selectedPostId: null,
     edit: false,
     categories: [],
-    comments: []
+    comments: [],
+    sortOrder: null
 }
 
 function posts(state = initialPosts, action) {
@@ -38,6 +40,7 @@ function posts(state = initialPosts, action) {
                 newState.selectedPostId = state.selectedPostId
                 newState.edit = state.edit
                 newState.comments = state.comments
+                newState.sortOrder =  null
                 if (!newState.categories.includes(post.category)) {
                     newState.categories.push(post.category)
                 }
@@ -93,7 +96,8 @@ function posts(state = initialPosts, action) {
                 selectedPostId: action.posts.postId,
                 edit: action.posts.edit,
                 categories: state.categories,
-                comments: state.comments
+                comments: state.comments,
+                sortOrder: state.sortOrder
             }
 
         case UPDATE_POST:
@@ -107,7 +111,8 @@ function posts(state = initialPosts, action) {
                 selectedPostId: state.selectedPostId,
                 edit: state.edit,
                 categories: state.categories,
-                comments: state.comments
+                comments: state.comments,
+                sortOrder: state.sortOrder
             }
 
         case ADD_COMMENT:
@@ -193,6 +198,39 @@ function posts(state = initialPosts, action) {
                     }}
             }
 
+        case SORT_POSTS:
+            let sortOrder = state.sortOrder
+            let postsById = {"byId": {}}
+            let newPosts =  {}
+
+            if (!sortOrder || sortOrder == "ASC") {
+                newPosts = Object.keys(state.posts.byId).map((key) => {
+                                       return state.posts.byId[key]
+                                   }).sort((a, b) => {
+                                       return action.sortKey.sortBy == "votes" ? (b.voteScore - a.voteScore) : (b.timestamp - a.timestamp)
+                           })
+                sortOrder = "DESC"
+            }
+            else {
+                newPosts = Object.keys(state.posts.byId).map((key) => {
+                    return state.posts.byId[key] }).sort((a, b) => {
+                                    return action.sortKey.sortBy == "votes" ? (a.voteScore - b.voteScore) : (a.timestamp - b.timestamp)
+                })
+                sortOrder = "ASC"
+            }
+
+            newPosts.map ( (data) => {
+                                            let key = data[Object.keys(data)[0]]
+                                            console.log("key: " + key + "  inner data: " + JSON.stringify(data))
+                                            return  postsById["byId"][key] = data
+                              } )
+
+            return {
+                ...state,
+                sortOrder: sortOrder,
+                posts: {...state.posts,
+                         byId: postsById["byId"] }
+            }
 
 
         default:

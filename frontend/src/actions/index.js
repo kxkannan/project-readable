@@ -1,15 +1,16 @@
-export const UP_VOTE_POST   = 'UP_VOTE_POST'
-export const DOWN_VOTE_POST = 'DOWN_VOTE_POST'
-export const EDIT_POST      = 'EDIT_POST'
-export const DELETE_POST    = 'DELETE_POST'
-export const ADD_POST       = 'ADD_POST'
-export const POST_DETAIL    = 'POST_DETAIL'
-export const UPDATE_POST    = 'UPDATE_POST'
-export const ADD_COMMENT    = 'ADD_COMMENT'
-export const UPDATE_COMMENT = 'UPDATE_COMMENT'
-export const DELETE_COMMENT = 'DELETE_COMMENT'
-export const UP_VOTE_COMMENT = 'UP_VOTE_COMMENT'
+export const UP_VOTE_POST      = 'UP_VOTE_POST'
+export const DOWN_VOTE_POST    = 'DOWN_VOTE_POST'
+export const EDIT_POST         = 'EDIT_POST'
+export const DELETE_POST       = 'DELETE_POST'
+export const ADD_POST          = 'ADD_POST'
+export const POST_DETAIL       = 'POST_DETAIL'
+export const UPDATE_POST       = 'UPDATE_POST'
+export const ADD_COMMENT       = 'ADD_COMMENT'
+export const UPDATE_COMMENT    = 'UPDATE_COMMENT'
+export const DELETE_COMMENT    = 'DELETE_COMMENT'
+export const UP_VOTE_COMMENT   = 'UP_VOTE_COMMENT'
 export const DOWN_VOTE_COMMENT = 'DOWN_VOTE_COMMENT'
+export const SORT_POSTS        = 'SORT_POST'
 
 export function upVotePost ({ postId }) {
     return {
@@ -100,4 +101,12 @@ export function downVoteComment( commentId ) {
     }
 
 }
+
+export function sortPosts( sortKey ) {
+    return {
+        type: SORT_POSTS,
+        sortKey
+    }
+}
+
 
