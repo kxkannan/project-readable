@@ -12,7 +12,7 @@ const defaultData = {
     category: 'react',
     voteScore: 6,
     deleted: false,
-    comments: [] 
+    commentCount: 2
   },
   "6ni6ok3ym7mf1p33lnez": {
     id: '6ni6ok3ym7mf1p33lnez',
@@ -23,7 +23,7 @@ const defaultData = {
     category: 'redux',
     voteScore: 4,
     deleted: false,
-    comments:  []
+    commentCount: 0
   },
   "cb9f9ce9a8aa76a63ffdd3": {
     id: 'cb9f9ce9a8aa76a63ffdd3',
@@ -34,7 +34,7 @@ const defaultData = {
     category: 'react',
     voteScore: 7,
     deleted: false,
-    comments:  []
+    commentCount: 0
   },
   "6994a06849785c46070c4a": {
     id: '6994a06849785c46070c4a',
@@ -45,7 +45,7 @@ const defaultData = {
     category: 'udacity',
     voteScore: 2,
     deleted: false,
-    comments:  []
+    commentCount: 0
   },
   "3c0c926dbf525165c2d27d": {
     id: '3c0c926dbf525165c2d27d',
@@ -56,7 +56,7 @@ const defaultData = {
     category: 'udacity',
     voteScore: -5,
     deleted: false,
-    comments:  []
+    commentCount: 0
   },
    "4ad545be4cf100d6c03969": {
     id: '4ad545be4cf100d6c03969',
@@ -67,7 +67,7 @@ const defaultData = {
     category: 'react',
     voteScore: 3,
     deleted: false,
-    comments:  []
+    commentCount: 0
   },
   "eeb22d28eadcc1042bb5c0": {
     id: 'eeb22d28eadcc1042bb5c0',
@@ -78,7 +78,7 @@ const defaultData = {
     category: 'redux',
     voteScore: 1,
     deleted: false,
-    comments:  []
+    commentCount: 0
   },
   "76f66114749043b261d3f1": {
     id: '76f66114749043b261d3f1',
@@ -89,7 +89,7 @@ const defaultData = {
     category: 'redux',
     voteScore: 0,
     deleted: false,
-    comments:  []
+    commentCount: 0
   }
 }
 

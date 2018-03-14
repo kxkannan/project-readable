@@ -33,7 +33,7 @@ class PostDetailReadonly extends Component {
                 <td className="showSubtext">
                     <span>{selectedPost.voteScore} votes | </span>
                     <span>{new Date(selectedPost.timestamp).toDateString()} {new Date(selectedPost.timestamp).toLocaleTimeString()} |</span>
-                    <span>{selectedPost.comments.length} comments |</span>
+                    <span>{selectedPost.commentCount} comments |</span>
                 </td>
             </tr>
             <tr className="bodyContainer">

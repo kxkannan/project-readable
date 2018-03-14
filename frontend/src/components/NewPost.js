@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { addPost } from "../actions";
+import * as CategoriesAPI from '../CategoriesAPI';
 
 class NewPost extends Component {
 
@@ -53,15 +54,25 @@ class NewPost extends Component {
 
     addNewPost = (event) => {
         event.preventDefault();
+        let postId = this.generateId()
+        let createdAt = Date.now()
         let newPost = {
             ...this.state,
-            timestamp: Date.now(),
-            id: this.generateId(),
+            timestamp: createdAt,
+            id: postId,
+            author: this.state.author,
             voteScore: 0,
             deleted: false,
             comments: []
         }
         this.props.addPost([newPost])
+        CategoriesAPI.addPost(postId, {id: postId, timestamp: createdAt,
+                                       title: this.state.title, body: this.state.description,
+                                       author: this.state.author, category: this.state.category,
+                                       voteScore: 0, deleted: false, comments: []
+                                       }).then((response) => {
+            console.log("Called server for adding new post for " + postId)
+        })
         this.props.history.push('/')
     }
 

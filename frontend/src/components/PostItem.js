@@ -66,7 +66,7 @@ class PostItem extends Component {
                             <td className="subtext">
                                 <span>{post.voteScore} votes | </span>
                                 <span>{new Date(post.timestamp).toDateString()} {new Date(post.timestamp).toLocaleTimeString()} | </span>
-                                <span>{post.comments.length} comments | </span>
+                                <span>{post.commentCount} comments | </span>
                                 <span onClick={() => this.upVote(post.id)}>Vote Up <FaCaretUp size="14"/> | </span>
                                 <span onClick={() => this.downVote(post.id)}>Vote Down <FaCaretDown size="14"/> | </span>
                                 <span>

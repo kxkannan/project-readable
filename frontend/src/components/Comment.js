@@ -30,9 +30,12 @@ class Comment extends Component {
         event.preventDefault();
         let newComment = {
             id: this.generateId(),
+            parentId: this.props.selectedPostId,
             comment: this.state.comment,
             author: this.state.author,
             timestamp: Date.now(),
+            deleted: false,
+            parentDeleted: false,
             voteScore: 0
         }
         this.props.addComment({ postId: this.props.selectedPostId, comment: newComment })

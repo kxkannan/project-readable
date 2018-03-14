@@ -42,11 +42,6 @@ function posts(state = initialPosts, action) {
                 if (!newState.categories.includes(post.category)) {
                     newState.categories.push(post.category)
                 }
-                if (newState.posts.byId[post.id].comments &&
-                      action.comment &&
-                        !newState.posts.byId[post.id].comments.includes(action.comment.id)) {
-                    newState.posts.byId[post.id].comments.push(action.comment.id)
-                }
                 return newState
             })
             return newState
@@ -133,7 +128,7 @@ function posts(state = initialPosts, action) {
                        byId: {
                            ...state.posts.byId,
                            [action.postId]: {...state.posts.byId[action.postId],
-                                             comments: state.posts.byId[action.postId].comments.concat([action.comment.id])
+                                             commentCount: state.posts.byId[action.postId].commentCount + 1
                                             }
                        }
                 },
@@ -160,13 +155,17 @@ function posts(state = initialPosts, action) {
             }
 
         case DELETE_COMMENT:
+            console.log("DELETE_COMMENT state comments.byId: " + JSON.stringify(state.comments.byId))
+            console.log("DELETE_COMMENT action: " + JSON.stringify(action))
             let newComments =  {}
             Object.keys(state.comments.byId).filter( (commentId) => {
                 return ( commentId !== action.commentId ) ?
                     newComments[commentId] = state.comments.byId[commentId] : null
             })
 
-            let newCommentIds = state.posts.byId[action.postId].comments.filter ( commentId => commentId !== action.commentId )
+            console.log("newComments: " + JSON.stringify(newComments))
+
+
 
             return {
                 ...state,
@@ -179,7 +178,8 @@ function posts(state = initialPosts, action) {
                         ...state.posts.byId,
                         [action.postId]: {
                                             ...state.posts.byId[action.postId],
-                                            comments: newCommentIds
+                                            commentCount: state.posts.byId[action.postId].commentCount - 1,
+                                            deleted: true
                                          }
                     }
                 }

@@ -33,6 +33,13 @@ export const postVote = (postId, data) =>
                                      headers: headers }).
     then((res) => res.json())
 
+export const addPost = (postId, data) =>
+    fetch(`${api}/posts`, {body: JSON.stringify(data),
+                            method: 'post',
+                            headers: headers }).
+    then((res) => res.json())
+
+
 export const editPost = (postId, data) =>
     fetch(`${api}/posts/` + postId, {body: JSON.stringify(data),
                                      method: 'put',

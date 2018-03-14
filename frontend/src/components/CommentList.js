@@ -85,12 +85,9 @@ class CommentList extends Component {
             selectedPost = posts.byId[selectedPostId]
         }
 
-        let commentIds = selectedPost.comments
         let selectedPostComments = [];
         if (comments && comments.byId) {
-            selectedPostComments = Object.keys(comments.byId).map(commentId => {
-                return (commentIds.includes(commentId)) ?  comments.byId[commentId] : null
-            })
+            selectedPostComments = Object.values(comments.byId).filter(comment => comment.parentId === selectedPostId )
 
             // remove the null comments
             selectedPostComments = selectedPostComments.filter( comment => comment )
