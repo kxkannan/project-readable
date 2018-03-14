@@ -13,7 +13,8 @@ import {
     DELETE_COMMENT,
     UP_VOTE_COMMENT,
     DOWN_VOTE_COMMENT,
-    SORT_POSTS
+    SORT_POSTS,
+    ADD_COMMENTS_TO_STORE
 } from '../actions'
 
 
@@ -143,6 +144,18 @@ function posts(state = initialPosts, action) {
                 }
             }
 
+        case ADD_COMMENTS_TO_STORE:
+            let newComments = {"byId": {}}
+            action.comments.map( comment => {
+                console.log("adding comment: " + JSON.stringify(comment))
+                newComments.byId[comment.id] = comment
+            })
+
+            return{
+                ...state,
+                comments: newComments
+            }
+
         case UPDATE_COMMENT:
             return {
                ...state,
@@ -155,18 +168,6 @@ function posts(state = initialPosts, action) {
             }
 
         case DELETE_COMMENT:
-            console.log("DELETE_COMMENT state comments.byId: " + JSON.stringify(state.comments.byId))
-            console.log("DELETE_COMMENT action: " + JSON.stringify(action))
-//            let newComments =  {}
- //           Object.keys(state.comments.byId).filter( (commentId) => {
-  //              return ( commentId !== action.commentId ) ?
-   //                 newComments[commentId] = state.comments.byId[commentId] : null
-    //        })
-
-     //       console.log("newComments: " + JSON.stringify(newComments))
-
-
-
             return {
                 ...state,
                 posts: {
@@ -189,6 +190,8 @@ function posts(state = initialPosts, action) {
             }
 
         case UP_VOTE_COMMENT:
+            console.log("UP_VOTE_COMMENT state: " + JSON.stringify(state))
+            console.log("UP_VOTE_COMMENT action: " + JSON.stringify(action))
             return {
                 ...state,
                 comments: {...state.comments,

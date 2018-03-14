@@ -27,13 +27,17 @@ export const all_posts = () =>
 fetch(`${api}/posts`, { headers })
     .then((res) => res.json() )
 
+export const comments = (postId) =>
+    fetch(`${api}/posts/` + postId + `/comments`, { headers })
+        .then((res) => res.json() )
+
 export const postVote = (postId, data) =>
     fetch(`${api}/posts/` + postId, {body: JSON.stringify(data),
                                      method: 'post',
                                      headers: headers }).
     then((res) => res.json())
 
-export const addPost = (postId, data) =>
+export const addPost = (data) =>
     fetch(`${api}/posts`, {body: JSON.stringify(data),
                             method: 'post',
                             headers: headers }).
@@ -50,6 +54,18 @@ export const deletePost = (postId) =>
     fetch(`${api}/posts/` + postId, {headers: headers,
                                      method: 'DELETE'}).
         then( (res) => res.json())
+
+export const addComment = (data) =>
+    fetch(`${api}/comments`, {body: JSON.stringify(data),
+        method: 'post',
+        headers: headers }).
+    then((res) => res.json())
+
+export const commentVote = (commentId, data) =>
+    fetch(`${api}/comments/` + commentId, {body: JSON.stringify(data),
+        method: 'post',
+        headers: headers }).
+    then((res) => res.json())
 
 
 

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { addComment }  from '../actions'
+import * as CategoriesAPI from "../CategoriesAPI";
 
 class Comment extends Component {
 
@@ -28,10 +29,11 @@ class Comment extends Component {
 
     addComment = (event) => {
         event.preventDefault();
+        let commentId = this.generateId()
         let newComment = {
-            id: this.generateId(),
+            id: commentId,
             parentId: this.props.selectedPostId,
-            comment: this.state.comment,
+            body: this.state.comment,
             author: this.state.author,
             timestamp: Date.now(),
             deleted: false,
@@ -40,6 +42,9 @@ class Comment extends Component {
         }
         this.props.addComment({ postId: this.props.selectedPostId, comment: newComment })
         this.setState({comment: "", author: ""})
+        CategoriesAPI.addComment(newComment).then((response) => {
+            console.log("Called server for adding comment for " + commentId)
+        })
     }
 
     handleChange = (event) => {

@@ -66,10 +66,10 @@ class NewPost extends Component {
             comments: []
         }
         this.props.addPost([newPost])
-        CategoriesAPI.addPost(postId, {id: postId, timestamp: createdAt,
+        CategoriesAPI.addPost({id: postId, timestamp: createdAt,
                                        title: this.state.title, body: this.state.description,
                                        author: this.state.author, category: this.state.category,
-                                       voteScore: 0, deleted: false, comments: []
+                                       voteScore: 0, deleted: false, commentCount: 0
                                        }).then((response) => {
             console.log("Called server for adding new post for " + postId)
         })

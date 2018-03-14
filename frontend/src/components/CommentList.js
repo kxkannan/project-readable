@@ -4,6 +4,7 @@ import ReactModal from 'react-modal'
 import { updateComment, deleteComment, upVoteComment, downVoteComment } from "../actions";
 import FaCaretUp from 'react-icons/lib/fa/caret-up'
 import FaCaretDown from 'react-icons/lib/fa/caret-down'
+import * as CategoriesAPI from "../CategoriesAPI";
 
 const customStyles = {
     content : {
@@ -65,11 +66,19 @@ class CommentList extends Component {
 
     upVoteComment = (commentId, event) => {
         this.props.upVoteComment(commentId)
+        CategoriesAPI.commentVote(commentId, {option: "upVote"}).then((response) => {
+            console.log("Called server for upVote comment for " + commentId)
+        })
+
 
     }
 
     downVoteComment = (commentId, event) => {
         this.props.downVoteComment(commentId)
+        CategoriesAPI.commentVote(commentId, {option: "downVote"}).then((response) => {
+            console.log("Called server for downVote comment for " + commentId)
+        })
+
 
     }
 
@@ -90,7 +99,7 @@ class CommentList extends Component {
             selectedPostComments = Object.values(comments.byId).filter(comment => comment.parentId === selectedPostId )
 
             // remove the null comments
-            selectedPostComments = selectedPostComments.filter( comment => comment )
+            selectedPostComments = selectedPostComments.filter( comment => !comment.deleted && !comment.parentDeleted )
         }
 
 
@@ -112,12 +121,12 @@ class CommentList extends Component {
                                           <button name="deleteComment" onClick={this.deleteComment.bind(this, selectedPostId, comment.id)}>Delete</button>
                                       </span>
                                    </div>
-                                   <div className="commentText">{comment.comment} </div>
+                                   <div className="commentText">{comment.body} </div>
                                     <ReactModal
                                         isOpen={this.state.showModal} style={customStyles}>
                                         <div><h4>Edit comment</h4></div>
                                         <div>
-                                          <textarea name="editComment" defaultValue={this.state.selectedComment.comment} onChange={this.handleCommentChange} />
+                                          <textarea name="editComment" defaultValue={this.state.selectedComment.body} onChange={this.handleCommentChange} />
                                         </div>
                                         <div>
                                          <button onClick={this.handleCloseModal}>Submit</button>

@@ -4,9 +4,17 @@ import { Route } from 'react-router-dom'
 import NotFoundPage from './NotFoundPage'
 import PostDetailReadonly from './PostDetailReadonly'
 import PostDetailEditable from './PostDetailEditable'
+import * as CategoriesAPI from "../CategoriesAPI";
+import {addCommentsToStore, addPost} from "../actions";
 
 
 class PostDetail extends Component {
+
+    componentDidMount() {
+        CategoriesAPI.comments(this.props.selectedPostId).then((response) => {
+            this.props.addCommentsToStore(response)
+        })
+    }
 
     render() {
         const { posts, selectedPostId, edit } = this.props
@@ -39,4 +47,12 @@ function mapStateToProps( state ) {
 }
 
 
-export default connect(mapStateToProps)(PostDetail);
+function mapDispatchToProps(dispatch) {
+    return {
+        addCommentsToStore: (data) => dispatch(addCommentsToStore(data)),
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);
+
