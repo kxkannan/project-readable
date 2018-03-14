@@ -34,38 +34,43 @@ export const comments = (postId) =>
 export const postVote = (postId, data) =>
     fetch(`${api}/posts/` + postId, {body: JSON.stringify(data),
                                      method: 'post',
-                                     headers: headers }).
-    then((res) => res.json())
+                                     headers: headers })
+        .then((res) => res.json())
 
 export const addPost = (data) =>
     fetch(`${api}/posts`, {body: JSON.stringify(data),
                             method: 'post',
-                            headers: headers }).
-    then((res) => res.json())
+                            headers: headers })
+        .then((res) => res.json())
 
 
 export const editPost = (postId, data) =>
     fetch(`${api}/posts/` + postId, {body: JSON.stringify(data),
                                      method: 'put',
-                                     headers: headers }).
-    then((res) => res.json())
+                                     headers: headers })
+        .then((res) => res.json())
 
 export const deletePost = (postId) =>
     fetch(`${api}/posts/` + postId, {headers: headers,
-                                     method: 'DELETE'}).
-        then( (res) => res.json())
+                                     method: 'DELETE'})
+        .then( (res) => res.json())
 
 export const addComment = (data) =>
     fetch(`${api}/comments`, {body: JSON.stringify(data),
         method: 'post',
-        headers: headers }).
-    then((res) => res.json())
+        headers: headers })
+        .then((res) => res.json())
 
 export const commentVote = (commentId, data) =>
     fetch(`${api}/comments/` + commentId, {body: JSON.stringify(data),
         method: 'post',
-        headers: headers }).
-    then((res) => res.json())
+        headers: headers })
+        .then((res) => res.json())
+
+export const deleteComment = (commentId) =>
+    fetch(`${api}/comments/` + commentId, { method: 'delete',
+                                            headers: headers })
+        .then((res) => res.json())
 
 
 

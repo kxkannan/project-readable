@@ -5,7 +5,7 @@ import NotFoundPage from './NotFoundPage'
 import PostDetailReadonly from './PostDetailReadonly'
 import PostDetailEditable from './PostDetailEditable'
 import * as CategoriesAPI from "../CategoriesAPI";
-import {addCommentsToStore, addPost} from "../actions";
+import {addCommentsToStore} from "../actions";
 
 
 class PostDetail extends Component {

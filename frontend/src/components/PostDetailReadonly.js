@@ -9,7 +9,7 @@ class PostDetailReadonly extends Component {
 
 
     render() {
-        const { posts, selectedPostId, comments } = this.props
+        const { posts, selectedPostId } = this.props
 
         let selectedPost = {}
         if (posts && selectedPostId && posts.byId[selectedPostId] && !posts.byId[selectedPostId].deleted ) {

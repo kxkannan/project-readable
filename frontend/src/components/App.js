@@ -5,7 +5,7 @@ import { Switch, Route, withRouter } from 'react-router-dom'
 import * as CategoriesAPI from '../CategoriesAPI';
 import CategoryMenu from './CategoryMenu';
 import CategoryPost from './CategoryPost';
-import { addPost, addCommentsToStore } from '../actions'
+import { addPost } from '../actions'
 import PostDetail from './PostDetail'
 import NewPost from './NewPost'
 import NotFoundPage from './NotFoundPage'

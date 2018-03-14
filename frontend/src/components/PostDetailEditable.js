@@ -47,12 +47,6 @@ class PostDetailEditable extends Component {
     }
 
     render() {
-        const { posts, selectedPostId } = this.props
-
-        let selectedPost = {}
-        if (posts && selectedPostId && posts.byId[selectedPostId] && !posts.byId[selectedPostId].deleted ) {
-            selectedPost = posts.byId[selectedPostId]
-        }
 
         return (
             <form onSubmit={this.updatePostBody}>

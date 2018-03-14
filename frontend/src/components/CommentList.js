@@ -34,6 +34,9 @@ class CommentList extends Component {
 
     deleteComment = (postId, commentId, event) => {
         this.props.deleteComment( {postId, commentId })
+        CategoriesAPI.deleteComment(commentId).then((response) => {
+            console.log("Called server for delete comment for " + commentId)
+        })
     }
 
     handleOpenModal = (commentId, event) => {
@@ -85,14 +88,10 @@ class CommentList extends Component {
 
 
     render() {
-        const { posts, selectedPostId, comments } = this.props
+        const { selectedPostId, comments } = this.props
 
         console.log("this.props.comments: " + JSON.stringify(comments))
 
-        let selectedPost = {}
-        if (posts && selectedPostId && posts.byId[selectedPostId] && !posts.byId[selectedPostId].deleted ) {
-            selectedPost = posts.byId[selectedPostId]
-        }
 
         let selectedPostComments = [];
         if (comments && comments.byId) {

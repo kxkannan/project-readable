@@ -147,8 +147,7 @@ function posts(state = initialPosts, action) {
         case ADD_COMMENTS_TO_STORE:
             let newComments = {"byId": {}}
             action.comments.map( comment => {
-                console.log("adding comment: " + JSON.stringify(comment))
-                newComments.byId[comment.id] = comment
+                return (newComments.byId[comment.id] = comment)
             })
 
             return{
