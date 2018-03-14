@@ -24,7 +24,6 @@ class PostDetail extends Component {
             selectedPost = posts.byId[selectedPostId]
         }
 
-        console.log("selectedPost: " + JSON.stringify(selectedPost) + " edit: " + edit)
         let editable = (selectedPost && selectedPost.id && edit)
 
         switch (editable) {

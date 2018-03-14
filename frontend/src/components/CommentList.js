@@ -90,9 +90,6 @@ class CommentList extends Component {
     render() {
         const { selectedPostId, comments } = this.props
 
-        console.log("this.props.comments: " + JSON.stringify(comments))
-
-
         let selectedPostComments = [];
         if (comments && comments.byId) {
             selectedPostComments = Object.values(comments.byId).filter(comment => comment.parentId === selectedPostId )
@@ -105,7 +102,6 @@ class CommentList extends Component {
             return (
                 <tbody>
                 {selectedPostComments.map(comment => {
-                    console.log("Processing comment: " + JSON.stringify(comment))
                     return comment ? (
                         <tr key={comment.id} id={comment.id}>
                                 <td>
@@ -144,7 +140,6 @@ class CommentList extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log("CommentList state.comments: " + JSON.stringify(state.posts.comments))
     return {
         posts: state.posts.posts,
         selectedPostId: state.posts.selectedPostId,

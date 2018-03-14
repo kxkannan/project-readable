@@ -83,8 +83,6 @@ function posts(state = initialPosts, action) {
             }
 
         case DELETE_POST:
-            console.log("DELETE_POST state: " + JSON.stringify(state))
-            console.log("DELETE_POST action: " + JSON.stringify(action))
             return {
                 ...state,
                 posts: {...state.posts,
@@ -107,7 +105,6 @@ function posts(state = initialPosts, action) {
             }
 
         case UPDATE_POST:
-            console.log("UPDAT_POST action: " + JSON.stringify(action))
             return {
                 posts: {...state.posts,
                       byId: {...state.posts.byId,
@@ -189,8 +186,6 @@ function posts(state = initialPosts, action) {
             }
 
         case UP_VOTE_COMMENT:
-            console.log("UP_VOTE_COMMENT state: " + JSON.stringify(state))
-            console.log("UP_VOTE_COMMENT action: " + JSON.stringify(action))
             return {
                 ...state,
                 comments: {...state.comments,
@@ -237,7 +232,6 @@ function posts(state = initialPosts, action) {
 
             newPosts.map ( (data) => {
                                             let key = data[Object.keys(data)[0]]
-                                            console.log("key: " + key + "  inner data: " + JSON.stringify(data))
                                             return  postsById["byId"][key] = data
                               } )
 
