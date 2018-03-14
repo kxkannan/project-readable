@@ -157,21 +157,18 @@ function posts(state = initialPosts, action) {
         case DELETE_COMMENT:
             console.log("DELETE_COMMENT state comments.byId: " + JSON.stringify(state.comments.byId))
             console.log("DELETE_COMMENT action: " + JSON.stringify(action))
-            let newComments =  {}
-            Object.keys(state.comments.byId).filter( (commentId) => {
-                return ( commentId !== action.commentId ) ?
-                    newComments[commentId] = state.comments.byId[commentId] : null
-            })
+//            let newComments =  {}
+ //           Object.keys(state.comments.byId).filter( (commentId) => {
+  //              return ( commentId !== action.commentId ) ?
+   //                 newComments[commentId] = state.comments.byId[commentId] : null
+    //        })
 
-            console.log("newComments: " + JSON.stringify(newComments))
+     //       console.log("newComments: " + JSON.stringify(newComments))
 
 
 
             return {
                 ...state,
-                comments: { ...state.comments,
-                            byId: newComments,
-                          },
                 posts: {
                     ...state.posts,
                     byId: {
@@ -179,9 +176,15 @@ function posts(state = initialPosts, action) {
                         [action.postId]: {
                                             ...state.posts.byId[action.postId],
                                             commentCount: state.posts.byId[action.postId].commentCount - 1,
-                                            deleted: true
                                          }
                     }
+                },
+                comments: { ...state.comments,
+                            byId: {...state.comments.byId,
+                                   [action.commentId]: {...state.comments.byId[action.commentId],
+                                                         deleted: true
+                                                       }
+                            }
                 }
             }
 
