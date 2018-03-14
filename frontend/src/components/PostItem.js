@@ -10,13 +10,16 @@ class PostItem extends Component {
 
     upVote = (postId) => {
         this.props.voteUp({postId: postId, posts: this.props.posts })
-        CategoriesAPI.upVotePost(postId).then((response) => {
+        CategoriesAPI.postVote(postId, {option: "upVote"}).then((response) => {
             console.log("Called server for upVotePost for " + postId)
         })
     }
 
     downVote = (postId) => {
         this.props.voteDown({postId: postId, posts: this.props.posts })
+        CategoriesAPI.postVote(postId, {option: "downVote"}).then((response) => {
+            console.log("Called server for downVotePost for " + postId)
+        })
     }
 
     editPost = (postId) => {

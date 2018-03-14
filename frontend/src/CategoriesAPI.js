@@ -7,7 +7,8 @@ if (!token)
 
 const headers = {
     'Accept': 'application/json',
-    'Authorization': 'kk-react-nd'
+    'Authorization': 'kk-react-nd',
+    'Content-Type': 'application/json'
 }
 
 export const categories = () =>
@@ -26,11 +27,10 @@ export const all_posts = () =>
 fetch(`${api}/posts`, { headers })
     .then((res) => res.json() )
 
-export const upVotePost = (postId) =>
-    fetch(`${api}/posts/` + postId, {body: JSON.stringify({"option": "upVote"}),
-                                     headers: headers,
-                                     cache: 'no-cache',
-                                     credentials: 'same-origin',
-                                     method: 'POST', } ).
+export const postVote = (postId, data) =>
+    fetch(`${api}/posts/` + postId, {body: JSON.stringify(data),
+                                     method: 'post',
+                                     headers: headers }).
     then((res) => res.json())
+
 
