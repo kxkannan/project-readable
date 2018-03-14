@@ -25,3 +25,12 @@ fetch(`${api}/${category}/posts`, { headers })
 export const all_posts = () =>
 fetch(`${api}/posts`, { headers })
     .then((res) => res.json() )
+
+export const upVotePost = (postId) =>
+    fetch(`${api}/posts/` + postId, {body: JSON.stringify({"option": "upVote"}),
+                                     headers: headers,
+                                     cache: 'no-cache',
+                                     credentials: 'same-origin',
+                                     method: 'POST', } ).
+    then((res) => res.json())
+

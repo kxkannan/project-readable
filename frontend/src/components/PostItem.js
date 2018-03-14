@@ -4,11 +4,15 @@ import { Link } from 'react-router-dom'
 import FaCaretUp from 'react-icons/lib/fa/caret-up'
 import FaCaretDown from 'react-icons/lib/fa/caret-down'
 import { downVotePost, upVotePost, showPostDetail, deletePost } from "../actions";
+import * as CategoriesAPI from '../CategoriesAPI';
 
 class PostItem extends Component {
 
     upVote = (postId) => {
         this.props.voteUp({postId: postId, posts: this.props.posts })
+        CategoriesAPI.upVotePost(postId).then((response) => {
+            console.log("Called server for upVotePost for " + postId)
+        })
     }
 
     downVote = (postId) => {
