@@ -54,10 +54,11 @@ export function showPostDetail(posts) {
     }
 }
 
-export function updatePost({postId, body}) {
+export function updatePost({postId, title, body}) {
     return {
         type: UPDATE_POST,
         postId,
+        title,
         body
     }
 }

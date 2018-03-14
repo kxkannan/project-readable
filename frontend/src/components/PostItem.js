@@ -28,6 +28,9 @@ class PostItem extends Component {
 
     deletePost = (postId) => {
         this.props.deletePost({postId: postId})
+        CategoriesAPI.deletePost(postId).then((response) => {
+            console.log("Deleting post from server for " + postId)
+        })
     }
 
     selectedPost = (postId) => {

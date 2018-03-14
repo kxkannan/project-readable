@@ -111,10 +111,12 @@ function posts(state = initialPosts, action) {
             }
 
         case UPDATE_POST:
+            console.log("UPDAT_POST action: " + JSON.stringify(action))
             return {
                 posts: {...state.posts,
                       byId: {...state.posts.byId,
                           [action.postId]: {...state.posts.byId[action.postId],
+                                             title: action.title,
                                              body: action.body}
                       }
                 },
