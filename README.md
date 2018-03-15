@@ -29,18 +29,17 @@ data changes you made will be lost.
 
 To start the backend-server:
 
--- cd to 'api-server'
--- npm install
--- npm start
+1. cd to 'api-server'
+2. npm install
+3. npm start
 
 By default this will start the backend server on port 4001.
 
-
 To start the front-end server:
 
--- cd to 'frontend'
--- npm install
--- npm start
+1. cd to 'frontend'
+2. npm install
+3. npm start
 
 If your port 3000 is being used, this will prompt you for a different port.
 
