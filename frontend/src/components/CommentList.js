@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import ReactModal from 'react-modal'
-import { updateComment, deleteComment, upVoteComment, downVoteComment } from "../actions";
+import * as commentActions from "../actions/comment_action_creators";
 import FaCaretUp from 'react-icons/lib/fa/caret-up'
 import FaCaretDown from 'react-icons/lib/fa/caret-down'
 import * as CategoriesAPI from "../CategoriesAPI";
@@ -139,20 +139,20 @@ class CommentList extends Component {
 
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, actions) {
     return {
         posts: state.posts.posts,
         selectedPostId: state.posts.selectedPostId,
-        comments: state.posts.comments
+        comments: state.comments.comments
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        updateComment: (data) => dispatch(updateComment(data)),
-        deleteComment: (data) => dispatch(deleteComment(data)),
-        upVoteComment: (data) => dispatch(upVoteComment(data)),
-        downVoteComment: (data) => dispatch(downVoteComment(data))
+        updateComment: (data) => dispatch(commentActions.updateComment(data)),
+        deleteComment: (data) => dispatch(commentActions.deleteComment(data)),
+        upVoteComment: (data) => dispatch(commentActions.upVoteComment(data)),
+        downVoteComment: (data) => dispatch(commentActions.downVoteComment(data))
 
     }
 }

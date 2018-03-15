@@ -1,22 +1,7 @@
 import { combineReducers } from 'redux'
+import comments from './comments_reducer'
 
-import {
-    UP_VOTE_POST,
-    DOWN_VOTE_POST,
-    EDIT_POST,
-    DELETE_POST,
-    ADD_POST,
-    POST_DETAIL,
-    UPDATE_POST,
-    ADD_COMMENT,
-    UPDATE_COMMENT,
-    DELETE_COMMENT,
-    UP_VOTE_COMMENT,
-    DOWN_VOTE_COMMENT,
-    SORT_POSTS,
-    ADD_COMMENTS_TO_STORE
-} from '../actions'
-
+import * as action_types  from '../actions/types'
 
 const initialPosts = {
     posts: {
@@ -31,8 +16,10 @@ const initialPosts = {
 
 function posts(state = initialPosts, action) {
 
+    console.log("posts reducer called")
+
     switch (action.type) {
-        case ADD_POST:
+        case action_types.ADD_POST:
             let newState = Object.assign({}, state)
             action.posts.map( (post) => {
                 newState.posts.byId[post.id] = post
@@ -47,7 +34,7 @@ function posts(state = initialPosts, action) {
             })
             return newState
 
-        case UP_VOTE_POST:
+        case action_types.UP_VOTE_POST:
             return {
                 ...state,
                 posts: {
@@ -62,7 +49,7 @@ function posts(state = initialPosts, action) {
                 }
             }
 
-        case DOWN_VOTE_POST:
+        case action_types.DOWN_VOTE_POST:
             return {
                 ...state,
                 posts: {
@@ -77,12 +64,12 @@ function posts(state = initialPosts, action) {
                 }
             }
 
-        case EDIT_POST:
+        case action_types.EDIT_POST:
             return {
                 ...state,
             }
 
-        case DELETE_POST:
+        case action_types.DELETE_POST:
             return {
                 ...state,
                 posts: {...state.posts,
@@ -94,7 +81,7 @@ function posts(state = initialPosts, action) {
                 }
             }
 
-        case POST_DETAIL:
+        case action_types.POST_DETAIL:
             return {
                 posts: {...state.posts},
                 selectedPostId: action.posts.postId,
@@ -104,7 +91,7 @@ function posts(state = initialPosts, action) {
                 sortOrder: state.sortOrder
             }
 
-        case UPDATE_POST:
+        case action_types.UPDATE_POST:
             return {
                 posts: {...state.posts,
                       byId: {...state.posts.byId,
@@ -120,126 +107,37 @@ function posts(state = initialPosts, action) {
                 sortOrder: state.sortOrder
             }
 
-        case ADD_COMMENT:
-            return {
-                posts: {...state.posts,
-                       byId: {
-                           ...state.posts.byId,
-                           [action.postId]: {...state.posts.byId[action.postId],
-                                             commentCount: state.posts.byId[action.postId].commentCount + 1
-                                            }
-                       }
-                },
-                selectedPostId: state.selectedPostId,
-                edit: state.edit,
-                categories: state.categories,
-                comments: {...state.comments,
-                           byId: {
-                               ...state.comments.byId,
-                               [action.comment.id]: action.comment
-                           }
-                }
-            }
-
-        case ADD_COMMENTS_TO_STORE:
-            let newComments = {"byId": {}}
-            action.comments.map( comment => {
-                return (newComments.byId[comment.id] = comment)
-            })
-
-            return{
-                ...state,
-                comments: newComments
-            }
-
-        case UPDATE_COMMENT:
-            return {
-               ...state,
-               comments: {...state.comments,
-                          byId: {
-                              ...state.comments.byId,
-                              [action.commentId]: {...state.comments.byId[action.commentId],
-                                                   comment: action.updatedComment}
-                          }}
-            }
-
-        case DELETE_COMMENT:
-            return {
-                ...state,
-                posts: {
-                    ...state.posts,
-                    byId: {
-                        ...state.posts.byId,
-                        [action.postId]: {
-                                            ...state.posts.byId[action.postId],
-                                            commentCount: state.posts.byId[action.postId].commentCount - 1,
-                                         }
-                    }
-                },
-                comments: { ...state.comments,
-                            byId: {...state.comments.byId,
-                                   [action.commentId]: {...state.comments.byId[action.commentId],
-                                                         deleted: true
-                                                       }
-                            }
-                }
-            }
-
-        case UP_VOTE_COMMENT:
-            return {
-                ...state,
-                comments: {...state.comments,
-                            byId: {
-                                ...state.comments.byId,
-                                [action.commentId]: {...state.comments.byId[action.commentId],
-                                                      voteScore: state.comments.byId[action.commentId].voteScore + 1
-                                                    }
-                            }}
-            }
-
-        case DOWN_VOTE_COMMENT:
-            return {
-                ...state,
-                comments: {...state.comments,
-                    byId: {
-                        ...state.comments.byId,
-                        [action.commentId]: {...state.comments.byId[action.commentId],
-                            voteScore: state.comments.byId[action.commentId].voteScore - 1
-                        }
-                    }}
-            }
-
-        case SORT_POSTS:
+        case action_types.SORT_POSTS:
             let sortOrder = state.sortOrder
             let postsById = {"byId": {}}
             let newPosts =  {}
 
             if (!sortOrder || sortOrder === "ASC") {
                 newPosts = Object.keys(state.posts.byId).map((key) => {
-                                       return state.posts.byId[key]
-                                   }).sort((a, b) => {
-                                       return action.sortKey.sortBy === "votes" ? (b.voteScore - a.voteScore) : (b.timestamp - a.timestamp)
-                           })
+                    return state.posts.byId[key]
+                }).sort((a, b) => {
+                    return action.sortKey.sortBy === "votes" ? (b.voteScore - a.voteScore) : (b.timestamp - a.timestamp)
+                })
                 sortOrder = "DESC"
             }
             else {
                 newPosts = Object.keys(state.posts.byId).map((key) => {
                     return state.posts.byId[key] }).sort((a, b) => {
-                                    return action.sortKey.sortBy === "votes" ? (a.voteScore - b.voteScore) : (a.timestamp - b.timestamp)
+                    return action.sortKey.sortBy === "votes" ? (a.voteScore - b.voteScore) : (a.timestamp - b.timestamp)
                 })
                 sortOrder = "ASC"
             }
 
             newPosts.map ( (data) => {
-                                            let key = data[Object.keys(data)[0]]
-                                            return  postsById["byId"][key] = data
-                              } )
+                let key = data[Object.keys(data)[0]]
+                return  postsById["byId"][key] = data
+            } )
 
             return {
                 ...state,
                 sortOrder: sortOrder,
                 posts: {...state.posts,
-                         byId: postsById["byId"] }
+                    byId: postsById["byId"] }
             }
 
 
@@ -251,5 +149,6 @@ function posts(state = initialPosts, action) {
 
 
 export default combineReducers({
-    posts
+    posts,
+    comments
 })

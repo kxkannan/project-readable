@@ -14,14 +14,26 @@ import NotFoundPage from './NotFoundPage'
 class App extends Component {
 
     componentDidMount() {
-
         CategoriesAPI.all_posts().then((response) => {
             this.props.addAllPosts(response)
         })
     }
 
+    addCategoryRoutes = (categories) => {
+        console.log("addCategoryRoutes categories: " + JSON.stringify(categories))
+        {categories.map((category, idx) =>
+                <Route exact={true} key={idx} path={'/' + category}
+                              render={() => <CategoryPost selectedCategory={category} />}/>
+            )
+        }
+    }
+
+
     render() {
-        const { categories } = this.props
+        const { posts } = this.props
+
+        console.log("categories: " + JSON.stringify(posts))
+        console.log("addCategoryRoutes: " + this.addCategoryRoutes(categories))
 
         return (
             <div className="App">
@@ -29,12 +41,7 @@ class App extends Component {
                 <CategoryMenu/>
 
                 <Switch>
-                    {categories.map((category, idx) => {
-                            return <Route exact={true} key={idx} path={'/' + category}
-                                          render={() => <CategoryPost selectedCategory={category} />}/>
-                        }
-                    )
-                    }
+                    {this.addCategoryRoutes(categories)}
                     <Route path="/new_post" exact component={NewPost}/>
                     <Route path="/:category/:postId" exact component={PostDetail}/>
                     <Route path="/" exact render={() => <CategoryPost selectedCategory="all"/> }/>
@@ -51,7 +58,7 @@ function mapStateToProps({posts }) {
         posts: posts.posts,
         selectedPostId: posts.selectedPostId,
         edit: posts.edit,
-        categories: posts.categories,
+        categories: posts.posts.categories ? posts.posts.categories : [],
         comments: posts.comment
     }
 }

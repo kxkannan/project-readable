@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import { addComment }  from '../actions'
+import { addComment }  from '../actions/comment_action_creators'
 import * as CategoriesAPI from "../CategoriesAPI";
 
 class Comment extends Component {
