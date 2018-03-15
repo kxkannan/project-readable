@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
 import FaCaretUp from 'react-icons/lib/fa/caret-up'
 import FaCaretDown from 'react-icons/lib/fa/caret-down'
-import { downVotePost, upVotePost, showPostDetail, deletePost } from "../actions";
+import * as actions  from "../actions";
 import * as CategoriesAPI from '../CategoriesAPI';
 
 class PostItem extends Component {
@@ -98,10 +98,10 @@ function mapStateToProps(posts) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        voteUp: (data) => dispatch(upVotePost(data)),
-        voteDown: (data) => dispatch(downVotePost(data)),
-        postDetail: (data) => dispatch(showPostDetail(data)),
-        deletePost: (data) => dispatch(deletePost(data))
+        voteUp: (data) => dispatch(actions.upVotePost(data)),
+        voteDown: (data) => dispatch(actions.downVotePost(data)),
+        postDetail: (data) => dispatch(actions.showPostDetail(data)),
+        deletePost: (data) => dispatch(actions.deletePost(data))
     }
 }
 

@@ -19,29 +19,16 @@ class App extends Component {
         })
     }
 
-    addCategoryRoutes = (categories) => {
-        console.log("addCategoryRoutes categories: " + JSON.stringify(categories))
-        {categories.map((category, idx) =>
-                <Route exact={true} key={idx} path={'/' + category}
-                              render={() => <CategoryPost selectedCategory={category} />}/>
-            )
-        }
-    }
-
-
     render() {
-        const { posts } = this.props
-
-        console.log("categories: " + JSON.stringify(posts))
-        console.log("addCategoryRoutes: " + this.addCategoryRoutes(categories))
-
         return (
             <div className="App">
 
                 <CategoryMenu/>
 
                 <Switch>
-                    {this.addCategoryRoutes(categories)}
+                    <Route exact={true} path='/react' render={() => <CategoryPost selectedCategory="react" />} />
+                    <Route exact={true} path='/redux' render={() => <CategoryPost selectedCategory="redux" />} />
+                    <Route exact={true} path='/udacity' render={() => <CategoryPost selectedCategory="udacity" />} />
                     <Route path="/new_post" exact component={NewPost}/>
                     <Route path="/:category/:postId" exact component={PostDetail}/>
                     <Route path="/" exact render={() => <CategoryPost selectedCategory="all"/> }/>
@@ -54,13 +41,7 @@ class App extends Component {
 }
 
 function mapStateToProps({posts }) {
-    return {
-        posts: posts.posts,
-        selectedPostId: posts.selectedPostId,
-        edit: posts.edit,
-        categories: posts.posts.categories ? posts.posts.categories : [],
-        comments: posts.comment
-    }
+    return { posts }
 }
 
 function mapDispatchToProps(dispatch) {

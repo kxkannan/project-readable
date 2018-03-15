@@ -30,7 +30,7 @@ class PostDetail extends Component {
             case true:
                 return ( <PostDetailEditable history={this.props.history}/> )
             case false:
-                return ( <PostDetailReadonly/> )
+                return ( <PostDetailReadonly history={this.props.history}/> )
             default:
                 return <Route component={NotFoundPage}/>
         }
