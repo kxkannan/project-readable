@@ -16,8 +16,6 @@ const initialPosts = {
 
 function posts(state = initialPosts, action) {
 
-    console.log("posts reducer called")
-
     switch (action.type) {
         case action_types.ADD_POST:
             let newState = Object.assign({}, state)
@@ -106,6 +104,41 @@ function posts(state = initialPosts, action) {
                 comments: state.comments,
                 sortOrder: state.sortOrder
             }
+
+        case action_types.SET_SELECTED_POST_ID:
+            return {
+                ...state,
+                selectedPostId: action.postId
+            }
+
+        case action_types.SET_CATEGORIES:
+            return {
+                ...state,
+                 categories: action.categories
+            }
+
+        case action_types.ADD_COMMENT:
+            return {
+                ...state,
+                posts: {...state.posts,
+                   byId: {...state.posts.byId,
+                          [action.postId]: {...state.posts.byId[action.postId],
+                                             commentCount: state.posts.byId[action.postId].commentCount + 1}
+                         }
+                }
+            }
+
+        case action_types.DELETE_COMMENT:
+            return {
+                ...state,
+                posts: {...state.posts,
+                    byId: {...state.posts.byId,
+                        [action.postId]: {...state.posts.byId[action.postId],
+                            commentCount: state.posts.byId[action.postId].commentCount - 1}
+                    }
+                }
+            }
+
 
         case action_types.SORT_POSTS:
             let sortOrder = state.sortOrder

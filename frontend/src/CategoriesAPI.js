@@ -43,6 +43,12 @@ export const addPost = (data) =>
                             headers: headers })
         .then((res) => res.json())
 
+export const getPost = (data) =>
+    fetch(`${api}/posts`, {body: JSON.stringify(data),
+        method: 'get',
+        headers: headers })
+        .then((res) => res.json())
+
 
 export const editPost = (postId, data) =>
     fetch(`${api}/posts/` + postId, {body: JSON.stringify(data),

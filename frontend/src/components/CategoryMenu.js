@@ -19,7 +19,6 @@ class CategoryMenu extends Component {
         const { posts } = this.props
 
         let categories = posts.posts.categories
-        console.log("CategoryMenu categories: " + categories)
 
         return (
             <div className="header category-menu">

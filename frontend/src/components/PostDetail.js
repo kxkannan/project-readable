@@ -6,6 +6,7 @@ import PostDetailReadonly from './PostDetailReadonly'
 import PostDetailEditable from './PostDetailEditable'
 import * as CategoriesAPI from "../CategoriesAPI";
 import {addCommentsToStore} from "../actions/comment_action_creators";
+import { setSelectedPostId, setCategories } from "../actions"
 
 
 class PostDetail extends Component {
@@ -14,6 +15,20 @@ class PostDetail extends Component {
         CategoriesAPI.comments(this.props.selectedPostId).then((response) => {
             this.props.addCommentsToStore(response)
         })
+        this.handleDirectNav()
+    }
+
+    handleDirectNav = () => {
+        let postParts = this.props.location.pathname.split("/").filter( part => part.length > 0)
+        let categories = ["react", "redux", "udacity"]
+        let postId = postParts[1]
+        if (postParts.length === 2 && categories.includes(postParts[0])) {
+            this.props.setCategories(categories)
+            this.props.setSelectedPostId(postId)
+            CategoriesAPI.comments(postId).then((response) => {
+                this.props.addCommentsToStore(response)
+            })
+        }
     }
 
     render() {
@@ -49,6 +64,8 @@ function mapStateToProps( state ) {
 function mapDispatchToProps(dispatch) {
     return {
         addCommentsToStore: (data) => dispatch(addCommentsToStore(data)),
+        setSelectedPostId: (data) => dispatch(setSelectedPostId(data)),
+        setCategories: (data) => dispatch(setCategories(data))
     }
 }
 

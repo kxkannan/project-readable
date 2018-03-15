@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import * as CategoriesAPI from '../CategoriesAPI';
 import CategoryMenu from './CategoryMenu';
@@ -25,14 +26,16 @@ class App extends Component {
 
                 <CategoryMenu/>
 
+                <Link to={this.props.location.pathname} />
+
                 <Switch>
+                    <Route exact={true} path="/:category/:postId" component={PostDetail}/>
                     <Route exact={true} path='/react' render={() => <CategoryPost selectedCategory="react" />} />
                     <Route exact={true} path='/redux' render={() => <CategoryPost selectedCategory="redux" />} />
                     <Route exact={true} path='/udacity' render={() => <CategoryPost selectedCategory="udacity" />} />
-                    <Route path="/new_post" exact component={NewPost}/>
-                    <Route path="/:category/:postId" exact component={PostDetail}/>
-                    <Route path="/" exact render={() => <CategoryPost selectedCategory="all"/> }/>
-                    <Route component={NotFoundPage}/>
+                    <Route exact={true} path="/new_post" component={NewPost}/>
+                    <Route exact={true} path="/" render={() => <CategoryPost selectedCategory="all"/> }/>
+                    <Route component={NotFoundPage} history={this.props.history}/>
                 </Switch>
 
             </div>

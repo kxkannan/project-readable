@@ -7,6 +7,9 @@ import CommentList from './CommentList'
 import LineSeparator from "./LineSeparator";
 import * as CategoriesAPI from '../CategoriesAPI';
 import { showPostDetail, deletePost } from "../actions";
+import FaCaretUp from 'react-icons/lib/fa/caret-up'
+import FaCaretDown from 'react-icons/lib/fa/caret-down'
+import * as actions from "../actions";
 
 
 
@@ -23,6 +26,21 @@ class PostDetailReadonly extends Component {
         })
         this.props.history.push('/')
     }
+
+    upVote = (postId) => {
+        this.props.voteUp({postId: postId, posts: this.props.posts })
+        CategoriesAPI.postVote(postId, {option: "upVote"}).then((response) => {
+            console.log("Called server for upVotePost for " + postId)
+        })
+    }
+
+    downVote = (postId) => {
+        this.props.voteDown({postId: postId, posts: this.props.posts })
+        CategoriesAPI.postVote(postId, {option: "downVote"}).then((response) => {
+            console.log("Called server for downVotePost for " + postId)
+        })
+    }
+
 
     render() {
         const { posts, selectedPostId } = this.props
@@ -50,6 +68,8 @@ class PostDetailReadonly extends Component {
                     <span>{selectedPost.voteScore} votes | </span>
                     <span>{new Date(selectedPost.timestamp).toDateString()} {new Date(selectedPost.timestamp).toLocaleTimeString()} |</span>
                     <span>{selectedPost.commentCount} comments | </span>
+                    <span onClick={() => this.upVote(selectedPostId)}>Vote Up <FaCaretUp size="14"/> | </span>
+                    <span onClick={() => this.downVote(selectedPostId)}>Vote Down <FaCaretDown size="14"/> | </span>
                     <span>
                           <Link to={'/' + selectedPost.category + '/' + selectedPostId}>
                             <span onClick={() => this.editPost(selectedPostId)}>Edit |</span>
@@ -83,6 +103,8 @@ function mapStateToProps( state ) {
 
 function mapDispatchToProps(dispatch) {
     return {
+        voteUp: (data) => dispatch(actions.upVotePost(data)),
+        voteDown: (data) => dispatch(actions.downVotePost(data)),
         updatePost: (data) => dispatch(updatePost(data)),
         postDetail: (data) => dispatch(showPostDetail(data)),
         deletePost: (data) => dispatch(deletePost(data))

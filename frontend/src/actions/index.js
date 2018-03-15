@@ -58,6 +58,20 @@ export function sortPosts( sortKey ) {
     }
 }
 
+export function setSelectedPostId( postId ) {
+    return {
+        type: action_types.SET_SELECTED_POST_ID,
+        postId
+    }
+}
+
+export function setCategories( categories ) {
+    return {
+        type: action_types.SET_CATEGORIES,
+        categories
+    }
+}
+
 
 
 
