@@ -10,16 +10,25 @@ the post. New comments will display below the post.
 
 Comments can be voted up or down; comments can be edited or deleted.
 
-To start the backend server
+This project has 2 components - front-end and backend-server.
 
-* Install and start the backend API server
-    - `cd api-server`
-    - `npm install`
-    - `node server`
-    
-* In another terminal window,
-   
-    - `cd frontend`
-    - `npm start`
+The backend-server is a simple nodejs server that initializes the app with some bootstrap data for the posts and comments to start with.
+
+To start the backend-server:
+
+-- cd to 'api-server'
+-- npm install
+-- npm start
+
+By default this will start the backend server on port 4001.
+
+
+To start the front-end server:
+
+-- cd to 'frontend'
+-- npm install
+-- npm start
+
+If your port 3000 is being used, this will prompt you for a different port.
 
 
