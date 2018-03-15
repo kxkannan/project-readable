@@ -1,6 +1,16 @@
-# Readable API Server
+Readable project
+================
 
-This is my project for Udacity React/Redux course. 
+This project brings up a web page and displays 'posts' with their author, categories, timestamp, votes and comments.
+
+The user can switch to different categories to see the posts filtered by that category.  The user can also add new posts
+to any of the listed categories. Comments can be added to a post by visiting the post detail page. The votes for the posts
+and comments can be updated by clicking on the small triangles (for "up vote" or "down vote").
+
+The posts and comments can be deleted also.
+
+The posts listing can be sorted by post Vote score or by timestamp. Clicking on the sorting orders reverses the order of
+the listing - ascending or descending.
 
 The app comes up with a default set of posts and categories. You can add new post to a category or sort the posts by
 Vote score or Timestamp.
