@@ -14,6 +14,9 @@ This project has 2 components - front-end and backend-server.
 
 The backend-server is a simple nodejs server that initializes the app with some bootstrap data for the posts and comments to start with.
 
+The data that's added to the server will be persisted as long as the backend server is running. If you restart the backend server, the
+data changes you made will be lost.
+
 To start the backend-server:
 
 -- cd to 'api-server'
