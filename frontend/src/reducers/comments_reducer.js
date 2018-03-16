@@ -42,16 +42,6 @@ export default function comments(state=initialComments, action) {
         case action_types.DELETE_COMMENT:
             return {
                 ...state,
-                // posts: {
-                //     ...state.posts,
-                //     byId: {
-                //         ...state.posts.byId,
-                //         [action.postId]: {
-                //             ...state.posts.byId[action.postId],
-                //             commentCount: state.posts.byId[action.postId].commentCount - 1,
-                //         }
-                //     }
-                // },
                 comments: { ...state.comments,
                     byId: {...state.comments.byId,
                         [action.commentId]: {...state.comments.byId[action.commentId],
